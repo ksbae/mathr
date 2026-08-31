@@ -16,4 +16,8 @@ It calculates the cumulative probability for x of a log-normal distribution.
 \value{
   cumulative probability till x
 }
+\examples{
+Plnorm(1)
+plnorm(1)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

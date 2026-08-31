@@ -16,4 +16,8 @@ It calculates the x value for the cumulative probability p of a gamma distributi
 \value{
   x of \code{Pgamma(x, alph, bet)}
 }
+\examples{
+Qgamma(0.5, 3)
+qgamma(0.5, 3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

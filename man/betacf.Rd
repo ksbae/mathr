@@ -21,5 +21,12 @@ Ref: Abramowitz and Stegun 26.5.8; beta_cont_frac of the GNU Scientific Library,
   Moshier SL. Methods and Programs for Mathematical Functions. Ellis Horwood, 1989.
   Abramowitz M, Stegun IA. Handbook of Mathematical Functions. Dover, 1972.
 }
+\examples{
+# I_x(a,b) = x^a (1-x)^b / (a B(a,b)) * betacf(a, b, x)
+a <- 2; b <- 3; x <- 0.4
+exp(gammln(a+b) - gammln(a) - gammln(b) +
+    a*log(x) + b*log(1-x)) * betacf(a, b, x) / a
+pbeta(x, a, b)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 \keyword{internal}

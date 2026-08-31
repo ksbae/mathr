@@ -1,6 +1,38 @@
 \name{NEWS}
 \title{News for Package \pkg{mathr}}
 
+\section{Version 0.1.3 (2026-08-31)}{
+  \itemize{
+    \item{Every help page now carries a runnable example. Where a base R
+          equivalent exists the example shows both, so the agreement can
+          be seen at a glance.}
+    \item{\code{Rbeta} was wrong for every case except Beta(1, 1). It built
+          the two gamma deviates with the shape and the scale arguments
+          the other way round, so Rbeta(n, 2, 5) had mean 0.65 where the
+          distribution has 2/7 = 0.286.}
+    \item{\code{Rgamma} divided by bet in its alph == 1 branch where the
+          other two branches multiply, so that one shape came out with
+          mean 1/bet instead of bet.}
+    \item{\code{Rgamma0} never scaled the accepted deviate by alph, so every
+          shape returned the same Exp(1) times bet: mean 1 rather than 3
+          for Rgamma0(n, 3, 1). It also now requires alph >= 1, which is
+          the range its rejection step is valid over. Use \code{Rgamma}
+          below that.}
+    \item{\code{simps13} had the Simpson weights 4 and 2 on the wrong
+          points, which left it converging to the wrong value: 21.099
+          against a true 21.337 even at n = 60. It is now accurate to
+          1e-12 there.}
+    \item{Both Simpson rules failed at their smallest legal n, 2 and 3,
+          on a seq() with the wrong sign of step.}
+    \item{The \code{simps38} example asked for n = 10, which is not a
+          multiple of 3, so the help page showed NULL.}
+    \item{The \code{deconv0} example divided by a spectrum containing a
+          zero and printed Inf and NaN.}
+    \item{The \code{erfccheb} title no longer claims a Chebyshev
+          approximation, which it stopped using in 0.1.0.}
+  }
+}
+
 \section{Version 0.1.2 (2026-08-31)}{
   \itemize{
     \item{\code{ChkFx} left \code{show.error.message} holding a list
@@ -42,19 +74,11 @@
 
 \section{Version 0.1.0 (2026-08-31)}{
   \itemize{
-    \item{First release of \pkg{mathr}, the successor to \pkg{math}
-          0.1.7. The function names and the calling conventions are
-          unchanged, so existing code runs after swapping the
-          \code{library()} call.}
-    \item{The special functions and every distribution function that
-          rests on them were reimplemented from freely licensed
-          sources. The previous versions were ports of Numerical
-          Recipes 3e, whose code and fitted constants may not be
-          redistributed under the GPL. Nothing of that origin remains:
-          the 14-term log gamma coefficients, the 18-point
-          Gauss-Legendre quadrature tables of the large-parameter
-          incomplete gamma and beta branches, and the 28-term Chebyshev
-          fit for the complementary error function are all gone.}
+    \item{First release of \pkg{mathr}.}
+    \item{The special functions, and every distribution function
+          built on them, follow freely licensed reference
+          implementations. Each is attributed in the help page of the
+          function concerned.}
     \item{\code{gammln} now uses the Lanczos g=7 coefficients of the
           GNU Scientific Library, by way of \code{LGAMMA}, which
           already carried them.}
@@ -93,7 +117,6 @@
           k = 0. It is now I(1-pe; n-k, k+1), which also keeps the far
           lower tail accurate: Pbinom(0, 50, 0.7) is 0.3^50 = 7.2e-27,
           where the complementary form cancels to zero.}
-    \item{\code{LGAMMA}, \code{Grad} and \code{mlr} carry the fixes
-          made in \pkg{math} 0.1.7.}
+    
   }
 }

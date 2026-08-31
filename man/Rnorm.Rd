@@ -16,4 +16,10 @@ It is more efficient with even n.
 \value{
   a vector of random numbers
 }
+\examples{
+set.seed(1)
+Rnorm(5)
+set.seed(1)
+round(mean(Rnorm(10000, mu=1, sigma=2)), 2)   # near 1
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

@@ -15,4 +15,9 @@ Input should be a symmetric matrix of real values and a real vector
 \value{
   Solution of the linear system with a real symmetric coefficient matrix 
 }
+\examples{
+M <- matrix(c(4, 1, 1, 3), 2, 2)
+SymSol(M, c(1, 2))
+solve(M, c(1, 2))
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

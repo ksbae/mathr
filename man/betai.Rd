@@ -22,5 +22,9 @@ Ref: gsl_sf_beta_inc of the GNU Scientific Library, specfunc/beta_inc.c
   Moshier SL. Methods and Programs for Mathematical Functions. Ellis Horwood, 1989.
   Abramowitz M, Stegun IA. Handbook of Mathematical Functions. Dover, 1972.
 }
+\examples{
+betai(2, 3, 0.4)
+pbeta(0.4, 2, 3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 

@@ -15,4 +15,8 @@ It calculates the mass for n of a Poisson distribution.
 \value{
   mass (probability) for n
 }
+\examples{
+Dpois(3, 4)
+dpois(3, 4)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

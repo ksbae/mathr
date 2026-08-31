@@ -16,4 +16,9 @@ It generates random numbers from random numbers of other ditribution.
 \value{
   a vector of random numbers
 }
+\examples{
+set.seed(1)
+Rbeta(5, 2, 5)
+round(mean(Rbeta(10000, 2, 5)), 3)            # near 2/(2+5)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

@@ -19,4 +19,10 @@ It uses acceptance-rejection method.
 \references{
   Banks J. Handbook of simulation (1998) pp152-153
 }
+\examples{
+set.seed(1)
+Rgamma(5, 3, 2)
+# bet is a scale here, so the mean is alph * bet
+round(mean(Rgamma(10000, 3, 2)), 2)           # near 6
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

@@ -15,6 +15,12 @@ One is input and the other is unit response sequence. The lengthes of two sequen
 \value{
   convolution result.
 }
+\examples{
+x <- c(1, 0.5, 0.25, 0.125)
+y <- c(1, 2, 3, 4)
+Re(conv0(x, y))                     # circular convolution, by fft
+round(Re(deconv0(conv0(x, y), x)), 10)   # deconv0 undoes it
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 
 

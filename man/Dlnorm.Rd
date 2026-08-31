@@ -16,4 +16,8 @@ It calculates the density for x value of a log-normal distribution.
 \value{
   density for x
 }
+\examples{
+Dlnorm(1)
+dlnorm(1)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

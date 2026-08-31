@@ -26,4 +26,8 @@ cumulative probability the two agree exactly.
 \value{
   the smallest k whose cumulative probability reaches p
 }
+\examples{
+Qbinom(0.5, 20, 0.3)         # smallest k with P(X <= k) >= p
+qbinom(0.5, 20, 0.3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

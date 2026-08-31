@@ -14,5 +14,10 @@ Ref. Plauger PJ The Standard C Library. 1992.
 \value{
   Exponential value of a real value.
 }
+\examples{
+EXP(1)
+exp(1)
+EXP(-3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 

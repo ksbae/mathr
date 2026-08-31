@@ -17,4 +17,8 @@ It calculates the t value for the cumulative probability p of a t distribution.
 \value{
   t of \code{Pt(t, nu, mu, sigma)}
 }
+\examples{
+Qt(0.975, 7)
+qt(0.975, 7)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

@@ -38,8 +38,11 @@ Rgamma = function(n, alph, bet)
       }
       Res[i] = bet*Y
     }        
-  } else { # alph == 0 -> exponential distribution
-    Res = -log(runif(n))/bet
+  } else { # alph == 1 -> exponential distribution
+    # bet is a scale here, as in the two branches above, so it
+    # multiplies. Dividing made this branch disagree with alph just
+    # either side of 1.
+    Res = -log(runif(n))*bet
   }
   
   return (Res)

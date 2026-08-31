@@ -15,4 +15,9 @@ It calculates the cumulative probability for n of a Poisson distribution.
 \value{
   cumulative probability till n
 }
+\examples{
+Ppois(0, 4)                  # P(X <= 0) = exp(-4)
+Ppois(3, 4)
+ppois(3, 4)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

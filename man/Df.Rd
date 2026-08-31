@@ -16,4 +16,8 @@ It calculates the density for f value of an F distribution.
 \value{
   density for f
 }
+\examples{
+Df(2, 4, 9)
+df(2, 4, 9)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

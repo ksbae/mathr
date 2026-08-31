@@ -15,4 +15,10 @@ Input should be a symmetric matrix of real values.
   \item{values}{eigen values}
   \item{vectors}{eigen vectors}
 }
+\examples{
+A <- matrix(c(2, 1, 1, 2), 2, 2)
+r <- evJacobi(A)
+r$values
+eigen(A)$values
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

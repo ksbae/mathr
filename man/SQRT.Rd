@@ -14,5 +14,9 @@ Ref. Plauger PJ The Standard C Library. 1992.
 \value{
   square-rooted value
 }
+\examples{
+SQRT(2)
+sqrt(2)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 

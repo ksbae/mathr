@@ -25,4 +25,8 @@ cumulative probability the two agree exactly.
 \value{
   the smallest n whose cumulative probability reaches p
 }
+\examples{
+Qpois(0.5, 4)                # smallest n with P(X <= n) >= p
+qpois(0.5, 4)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

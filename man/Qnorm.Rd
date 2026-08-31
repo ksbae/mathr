@@ -16,4 +16,9 @@ It calculates the x value for the cumulative probability p of a normal distribut
 \value{
   x of \code{Pnorm(x, mu, sigma)}
 }
+\examples{
+Qnorm(0.975)
+qnorm(0.975)
+Qnorm(0.5, mu=110, sig=15)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

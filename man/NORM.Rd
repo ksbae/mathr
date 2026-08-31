@@ -16,5 +16,9 @@ Ref. Plauger PJ The Standard C Library. 1992.
 \value{
   Norm[1] * 2^Norm[2]
 }
+\examples{
+NORM(10)                     # 10 = 0.625 * 2^4
+DENORM(NORM(10))
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 

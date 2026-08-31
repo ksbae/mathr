@@ -21,5 +21,9 @@ Ref: Cephes igam/igamc, as redistributed in ALGLIB specialfunctions.cs
   Moshier SL. Methods and Programs for Mathematical Functions. Ellis Horwood, 1989.
   Abramowitz M, Stegun IA. Handbook of Mathematical Functions. Dover, 1972.
 }
+\examples{
+gammp(2, 3)                  # P(2, 3)
+pgamma(3, 2)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 

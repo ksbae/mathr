@@ -22,5 +22,9 @@ Ref: bracketed Newton steps on betai, following gsl_cdf_beta_Pinv of the GNU Sci
   Moshier SL. Methods and Programs for Mathematical Functions. Ellis Horwood, 1989.
   Abramowitz M, Stegun IA. Handbook of Mathematical Functions. Dover, 1972.
 }
+\examples{
+invbetai(0.5, 2, 3)
+qbeta(0.5, 2, 3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 

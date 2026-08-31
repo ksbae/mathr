@@ -7,7 +7,7 @@ Generate random numbers from a gamma distribution by a simple method
 \usage{Rgamma0(n, alph, bet)}
 \arguments{
   \item{n}{count, how many do you want}
-  \item{alph}{shape parameter alpha of a gamma distribution}
+  \item{alph}{shape parameter alpha of a gamma distribution, at least 1}
   \item{bet}{shape parameter beta of a gamma disribution}
 }
 \details{
@@ -18,5 +18,11 @@ It uses acceptance-rejection method.
 }
 \references{
   Banks J. Handbook of simulation (1998) pp152-153
+}
+\examples{
+set.seed(1)
+Rgamma0(5, 3, 2)
+round(mean(Rgamma0(10000, 3, 2)), 2)          # near 6
+# alph must be at least 1; use Rgamma for smaller shapes
 }
 \author{Kyun-Seop Bae <k@acr.kr>}

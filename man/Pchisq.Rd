@@ -15,4 +15,8 @@ It calculates the cumulative probability for x2 of a chi-square distribution.
 \value{
   cumulative probability till x2
 }
+\examples{
+Pchisq(3.84, 1)              # about 0.95
+pchisq(3.84, 1)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

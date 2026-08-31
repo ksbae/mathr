@@ -21,5 +21,9 @@ Ref: Abramowitz and Stegun 6.5.31; Cephes igamc, as redistributed in ALGLIB spec
   Moshier SL. Methods and Programs for Mathematical Functions. Ellis Horwood, 1989.
   Abramowitz M, Stegun IA. Handbook of Mathematical Functions. Dover, 1972.
 }
+\examples{
+gcf(2, 5)                    # continued fraction branch, x > a
+pgamma(5, 2, lower.tail=FALSE)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 \keyword{internal}

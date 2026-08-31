@@ -267,4 +267,64 @@ stopifnot(length(dev.list()) == nd.before,
           identical(par.before$oma,   par.after$oma))
 invisible(dev.off())
 
+
+## ---- random deviates: moments must match the distribution ----------
+## Three generators were wrong before 0.1.3. Rbeta passed shape and
+## scale to Rgamma the wrong way round, so only Beta(1,1) came out
+## right. Rgamma's alph == 1 branch divided by bet where the other two
+## branches multiply. Rgamma0 never scaled the accepted exponential by
+## alph, so every shape produced the same Exp(1) * bet.
+set.seed(20260831)
+N <- 60000
+near <- function(got, want, tol) abs(got - want) < tol * max(abs(want), 1)
+
+for (cs in list(c(3, 2), c(0.5, 2), c(5, 1), c(1, 2))) {
+  a <- cs[1]; b <- cs[2]            # bet is a scale for Rgamma
+  x <- Rgamma(N, a, b)
+  stopifnot(near(mean(x), a*b, 0.05), near(var(x), a*b*b, 0.10))
+  ## Rgamma0 only covers alph >= 1; below that its rejection step
+  ## accepts everything and returns a scaled Exp(1).
+  if (a >= 1) {
+    x0 <- Rgamma0(N, a, b)
+    stopifnot(near(mean(x0), a*b, 0.05), near(var(x0), a*b*b, 0.10))
+  }
+}
+stopifnot(inherits(try(Rgamma0(5, 0.5, 1), silent = TRUE), "try-error"))
+for (cs in list(c(2, 5), c(1, 1), c(3, 3), c(0.5, 2))) {
+  a <- cs[1]; b <- cs[2]
+  x <- Rbeta(N, a, b)
+  stopifnot(near(mean(x), a/(a+b), 0.05),
+            near(var(x), a*b/((a+b)^2*(a+b+1)), 0.10))
+}
+stopifnot(near(mean(Rexp(N, 2)), 0.5, 0.05))          # alpha is a rate
+stopifnot(near(mean(Rnorm(N, 1, 2)), 1, 0.05), near(sd(Rnorm(N, 1, 2)), 2, 0.05))
+
+## ---- quadrature must converge at the advertised order --------------
+## simps13 had the weights 4 and 2 the wrong way round, so it converged
+## to the wrong value, and both Simpson rules failed at their smallest
+## legal n.
+quad <- list(list(f = function(x) exp(-x/100), a = 0, b = 24,
+                  e = 100*(1 - exp(-0.24))),
+             list(f = sin,                     a = 0, b = pi,  e = 2),
+             list(f = function(x) 1/(1+x^2),   a = 0, b = 1,   e = pi/4))
+for (q in quad) {
+  ## Simpson's rules are exact for cubics and O(h^4) in general, so the
+  ## error has to fall by at least two orders when n goes from 6 to 30.
+  e6  <- abs(simps13(q$f, q$a, q$b, 6)  - q$e)/q$e
+  e30 <- abs(simps13(q$f, q$a, q$b, 30) - q$e)/q$e
+  stopifnot(e30 < 1e-5, e30 < e6/100)
+  f6  <- abs(simps38(q$f, q$a, q$b, 6)  - q$e)/q$e
+  f30 <- abs(simps38(q$f, q$a, q$b, 30) - q$e)/q$e
+  stopifnot(f30 < 1e-5, f30 < f6/100)
+  stopifnot(abs(GQuad8(q$f, q$a, q$b) - q$e)/q$e < 1e-8)
+  ## smallest legal n must not error
+  stopifnot(is.finite(simps13(q$f, q$a, q$b, 2)),
+            is.finite(simps38(q$f, q$a, q$b, 3)))
+}
+## exact for a cubic
+stopifnot(abs(simps13(function(x) x^3, 0, 2, 2) - 4) < 1e-12,
+          abs(simps38(function(x) x^3, 0, 2, 3) - 4) < 1e-12)
+## n of the wrong divisibility returns NULL, as documented
+stopifnot(is.null(simps13(sin, 0, pi, 3)), is.null(simps38(sin, 0, pi, 10)))
+
 cat("all regression tests passed\n")

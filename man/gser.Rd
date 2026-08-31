@@ -21,5 +21,9 @@ Ref: Abramowitz and Stegun 6.5.29; Cephes igam, as redistributed in ALGLIB speci
   Moshier SL. Methods and Programs for Mathematical Functions. Ellis Horwood, 1989.
   Abramowitz M, Stegun IA. Handbook of Mathematical Functions. Dover, 1972.
 }
+\examples{
+gser(2, 1)                   # series branch, x <= a
+pgamma(1, 2)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 \keyword{internal}

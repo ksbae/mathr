@@ -20,6 +20,7 @@ This gives approximate integration value using Romberg integration. Argument N s
 \author{Kyun-Seop Bae <k@acr.kr>}
 \examples{
 fx = function(x) exp(-x/100)
+# exact value: 100 * (1 - exp(-0.24)) = 21.33721
 romb(fx, 0, 24, 10)
 }
 

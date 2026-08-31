@@ -16,4 +16,9 @@ It calculates the cumulative probability for x of a normal distribution.
 \value{
   cumulative probability till x
 }
+\examples{
+Pnorm(1.96)
+pnorm(1.96)
+Pnorm(100, mu=110, sig=15)   # IQ below 100
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

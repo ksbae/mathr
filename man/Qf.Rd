@@ -16,4 +16,8 @@ It calculates the f for the cumulative probability p of an F distribution.
 \value{
   f of \code{Pf(f, nu1, nu2)}
 }
+\examples{
+Qf(0.95, 4, 9)
+qf(0.95, 4, 9)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

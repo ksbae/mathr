@@ -16,4 +16,8 @@ It calculates the cumulative probability for k of a Poisson distribution.
 \value{
   cumulative probability till k
 }
+\examples{
+Pbinom(3, 20, 0.3)           # P(X <= 3)
+pbinom(3, 20, 0.3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

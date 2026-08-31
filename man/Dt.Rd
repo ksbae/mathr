@@ -17,4 +17,8 @@ It calculates the density for t value of a t distribution.
 \value{
   density for t
 }
+\examples{
+Dt(1.5, 7)
+dt(1.5, 7)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

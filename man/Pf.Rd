@@ -16,4 +16,8 @@ It calculates the cumulative probability for f of an F distribution.
 \value{
   cumulative probability till f
 }
+\examples{
+Pf(2, 4, 9)
+pf(2, 4, 9)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

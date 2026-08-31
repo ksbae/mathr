@@ -21,5 +21,9 @@ Ref: Wilson and Hilferty (1931) starting value refined by bracketed Newton steps
   Moshier SL. Methods and Programs for Mathematical Functions. Ellis Horwood, 1989.
   Abramowitz M, Stegun IA. Handbook of Mathematical Functions. Dover, 1972.
 }
+\examples{
+invgammp(0.5, 3)
+qgamma(0.5, 3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 

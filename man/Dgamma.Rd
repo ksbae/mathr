@@ -16,4 +16,9 @@ It calculates the density for x value of a gamma distribution.
 \value{
   density for x
 }
+\examples{
+Dgamma(2, 3)        # bet defaults to 1
+Dgamma(2, 3, 2)     # bet is a rate
+dgamma(2, 3, rate=2)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

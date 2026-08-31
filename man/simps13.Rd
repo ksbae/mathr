@@ -20,7 +20,9 @@ This gives approximate integration value using Simpson's 1/3 formula. Argument n
 \author{Kyun-Seop Bae <k@acr.kr>}
 \examples{
 fx = function(x) exp(-x/100)
-simps13(fx, 0, 24, 10)
+# exact value: 100 * (1 - exp(-0.24)) = 21.33721
+simps13(fx, 0, 24, 10)   # n must be even
+simps13(fx, 0, 24, 30)
 }
 
 

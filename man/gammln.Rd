@@ -19,5 +19,9 @@ Ref: Lanczos g=7 coefficients as used by the GNU Scientific Library, gsl_sf_lnga
   Moshier SL. Methods and Programs for Mathematical Functions. Ellis Horwood, 1989.
   Abramowitz M, Stegun IA. Handbook of Mathematical Functions. Dover, 1972.
 }
+\examples{
+gammln(5)
+lgamma(5)                    # log(4!) = log(24)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 

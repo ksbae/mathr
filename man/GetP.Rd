@@ -15,4 +15,9 @@ The result is same with \code{solve(H, -g)}
 \value{
   Direction vector for a new search 
 }
+\examples{
+# Hv is the lower triangle of the hessian, column by column
+GetP(c(4, 1, 3), c(1, 2))
+solve(matrix(c(4, 1, 1, 3), 2, 2), c(1, 2))
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

@@ -28,4 +28,14 @@ It shows various outputs.
   \item{DIFFITS}{DIFFITS}
   \item{DFBETAs}{DFBETAs}
 }
+\examples{
+set.seed(1)
+n <- 30
+X <- data.frame(a = rnorm(n, 10, 2), b = rnorm(n, -5, 3))
+y <- 1 + 2*X$a - X$b + rnorm(n)
+fit <- mlr(y, X)
+fit[[1]]                                  # estimates, SE, t, p
+coef(summary(lm(y ~ a + b, data = X)))    # base R, for comparison
+mlr(y, X, standardize = 1)[[1]]           # centred by column
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

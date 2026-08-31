@@ -16,4 +16,8 @@ It calculates the x value for the cumulative probability p of a log-normal distr
 \value{
   x of \code{Plnorm(x, mu, sigma)}
 }
+\examples{
+Qlnorm(0.5)
+qlnorm(0.5)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

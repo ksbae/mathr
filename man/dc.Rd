@@ -17,6 +17,13 @@ Two measurement sequences with two different time point sequences. The order mat
 \value{
   Deconvolution result: input sequence or unit response sequence.
 }
+\examples{
+t1 <- 0:5
+c1 <- c(0, 1, 3, 4, 3, 1)           # response
+t2 <- 0:5
+c2 <- c(0, 1, 1, 0, 0, 0)           # unit response
+dc(t1, c1, t2, c2)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 
 

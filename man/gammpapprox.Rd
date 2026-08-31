@@ -22,5 +22,9 @@ Retained for backward compatibility. The Cephes series and continued fraction co
   Moshier SL. Methods and Programs for Mathematical Functions. Ellis Horwood, 1989.
   Abramowitz M, Stegun IA. Handbook of Mathematical Functions. Dover, 1972.
 }
+\examples{
+gammpapprox(2, 3, 1)         # same as gammp(2, 3)
+gammpapprox(2, 3, 0)         # same as gammq(2, 3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 \keyword{internal}

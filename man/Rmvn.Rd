@@ -16,4 +16,10 @@ It uses cholesky decomposition.
 \value{
   a matrix of random vectors
 }
+\examples{
+set.seed(1)
+Cov <- matrix(c(1, 0.7, 0.7, 1), 2, 2)
+Rmvn(4, c(0, 0), Cov)
+round(cor(Rmvn(5000, c(0, 0), Cov))[1, 2], 2)  # near 0.7
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

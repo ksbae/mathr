@@ -16,4 +16,8 @@ It calculates the cumulative probability for x of a beta distribution.
 \value{
   cumulative probability till x
 }
+\examples{
+Pbeta(0.3, 2, 3)
+pbeta(0.3, 2, 3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

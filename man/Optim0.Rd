@@ -32,4 +32,7 @@ If the changes of between steps are less than the tolerances, it stops.
   \item{f}{function values}
   \item{x}{x vector values}
 }
+\examples{
+Optim0(c(-1.2, 1), function(x) 100*(x[2] - x[1]^2)^2 + (1 - x[1])^2)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

@@ -22,4 +22,8 @@ If the changes of between steps are less than the tolerances, it stops.
   \item{convergence}{convergence is met or not}
   \item{grad}{gradient at the final x vector}
 }
+\examples{
+VMmin(c(-1.2, 1), function(x) 100*(x[2] - x[1]^2)^2 + (1 - x[1])^2)
+VMmin(0, function(x) sum((x - 2.5)^2) + 1)   # one dimension
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

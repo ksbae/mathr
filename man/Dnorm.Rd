@@ -16,4 +16,9 @@ It calculates the density for x value of a normal distribution.
 \value{
   density for x
 }
+\examples{
+Dnorm(0)
+Dnorm(1.96, mu=0, sig=1)
+dnorm(1.96)          # base R, for comparison
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

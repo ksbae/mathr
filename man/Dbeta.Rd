@@ -16,4 +16,8 @@ It calculates the density for x value of a beta distribution.
 \value{
   density for x
 }
+\examples{
+Dbeta(0.3, 2, 3)
+dbeta(0.3, 2, 3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

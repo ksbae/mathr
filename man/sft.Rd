@@ -14,6 +14,10 @@ This is slow but easy to understand.
 \value{
   Fourier transformation result
 }
+\examples{
+sft(c(1, 2, 3, 4))                  # slow Fourier transform
+fft(c(1, 2, 3, 4))                  # base R, for comparison
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 
 

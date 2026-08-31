@@ -16,4 +16,8 @@ It calculates the x value for the cumulative probability p of a beta distributio
 \value{
   x of \code{Pt(x, alph, bet)}
 }
+\examples{
+Qbeta(0.5, 2, 3)
+qbeta(0.5, 2, 3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

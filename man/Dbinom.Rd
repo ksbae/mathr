@@ -16,4 +16,8 @@ It calculates the probability for count k of a binomial distribution.
 \value{
   probability for k
 }
+\examples{
+Dbinom(3, 10, 0.3)
+dbinom(3, 10, 0.3)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

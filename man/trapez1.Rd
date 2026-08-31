@@ -20,7 +20,9 @@ This gives approximate integration value using trapezoidal rule.
 \author{Kyun-Seop Bae <k@acr.kr>}
 \examples{
 fx = function(x) exp(-x/100)
+# exact value: 100 * (1 - exp(-0.24)) = 21.33721
 trapez1(fx, 0, 24, 10)
+trapez1(fx, 0, 24, 1000)
 }
 
 

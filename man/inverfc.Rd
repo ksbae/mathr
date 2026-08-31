@@ -21,5 +21,10 @@ inverse of complementary error function value, p = erfc(x)
   Moshier SL. Methods and Programs for Mathematical Functions. Ellis Horwood, 1989.
   Abramowitz M, Stegun IA. Handbook of Mathematical Functions. Dover, 1972.
 }
+\examples{
+inverfc(0.05)
+erfc(inverfc(0.05))          # back to 0.05
+inverfc(1)                   # 0
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 

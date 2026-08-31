@@ -21,5 +21,9 @@ Ref: erf(x) = P(1/2, x^2), the relation the GNU Scientific Library uses between 
   Moshier SL. Methods and Programs for Mathematical Functions. Ellis Horwood, 1989.
   Abramowitz M, Stegun IA. Handbook of Mathematical Functions. Dover, 1972.
 }
+\examples{
+erf(1)
+2*pnorm(sqrt(2)) - 1         # base R, for comparison
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 

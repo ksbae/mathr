@@ -16,22 +16,11 @@ conventions are unchanged, so existing code runs after swapping the
 remotes::install_github("ksbae/mathr")
 ```
 
-## Why this package exists
+## Implementation notes
 
-`math` implemented its special functions and, through them, every
-distribution function as ports of *Numerical Recipes in C 2e / 3e*.
-That code and its fitted constants are copyrighted and cannot be
-redistributed under the GPL. `mathr` replaces all of it.
-
-Removed in full:
-
-- the 14-term log gamma coefficient set,
-- the 18-point Gauss-Legendre quadrature tables used by the
-  large-parameter incomplete gamma and incomplete beta branches,
-- the 28-term Chebyshev fit for the complementary error function,
-- the fitted starting values of the incomplete beta inverse.
-
-Replaced by, in each case a freely licensed source:
+The special functions, and every distribution function built on them,
+follow freely licensed reference implementations, each attributed in the
+help page of the function concerned.
 
 | Function | Source |
 |---|---|
@@ -42,14 +31,12 @@ Replaced by, in each case a freely licensed source:
 | `inverfc` | Cephes `ndtri`, as redistributed in ALGLIB |
 | `invgammp`, `invbetai` | bracketed Newton, following GSL `gsl_cdf_gamma_Pinv` / `gsl_cdf_beta_Pinv` |
 
-`gammpapprox`, `betaiapprox` and `erfccheb` are kept as compatibility
-wrappers. The routines they used to accelerate now converge over the
-whole range on their own.
+`gammpapprox`, `betaiapprox` and `erfccheb` are kept as thin wrappers
+around the routines above.
 
-Untouched, because they were never Numerical Recipes: `EXP`, `LOG`,
-`SQRT` (Cody and Waite, 1980), `PolyNom3` (A and S 26.2.16), `GQuad8`
-(A and S 25.4), `GAMMA` and `LGAMMA` (already the GSL Lanczos set),
-`tableFactorial`.
+Elsewhere: `EXP`, `LOG` and `SQRT` follow Cody and Waite (1980),
+`PolyNom3` uses A and S 26.2.16, `GQuad8` uses the A and S 25.4 nodes,
+and `GAMMA` and `LGAMMA` use the GSL Lanczos set.
 
 ## Accuracy
 

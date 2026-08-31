@@ -15,4 +15,8 @@ It calculates the chi-square value for the cumulative probability p of a chi-squ
 \value{
   x2 of \code{Pt(x2, nu)}
 }
+\examples{
+Qchisq(0.95, 1)              # about 3.84
+qchisq(0.95, 1)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}

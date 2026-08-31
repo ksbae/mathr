@@ -16,5 +16,9 @@ Input is the same to \code{Grad} and \code{Hessian} functions.
   \item{gr}{gradient vector}
   \item{Hessian}{Hessian matrix}
 }
+\examples{
+GenD(function(x) sum(x^2), c(1, 2))     # gradient, hessian and more
+GenD(function(x) sum(x^3), 2)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
 

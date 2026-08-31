@@ -14,4 +14,9 @@ Input should be a symmetric matrix of real values.
 \value{
   Inverse of the input
 }
+\examples{
+M <- matrix(c(4, 1, 1, 3), 2, 2)
+SymInv(M)
+solve(M)
+}
 \author{Kyun-Seop Bae <k@acr.kr>}
