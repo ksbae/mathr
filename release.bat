@@ -34,10 +34,26 @@ for /f %%s in ('git status --porcelain --untracked-files=no') do (
   git status --short
   exit /b 1
 )
+REM  An existing tag is only a problem when it does not sit on HEAD.
+REM  Re-running publish for a version already tagged is a normal thing
+REM  to want, so that case skips the tagging step instead of failing.
+set SKIPTAG=
 git rev-parse -q --verify "refs/tags/v%VER%" >nul
 if not errorlevel 1 (
-  echo Tag v%VER% already exists. Bump Version in DESCRIPTION first.
-  exit /b 1
+  REM  What matters is that the tarball about to be built is the one the
+  REM  tag names, so compare the paths R CMD build actually reads rather
+  REM  than the whole commit. A change confined to this script or to
+  REM  README does not alter the artifact and must not block a publish.
+  git diff --quiet "v%VER%" HEAD -- DESCRIPTION NAMESPACE R man inst tests
+  if errorlevel 1 (
+    echo Tag v%VER% exists, but the package sources have changed since it
+    echo was made:
+    git diff --stat "v%VER%" HEAD -- DESCRIPTION NAMESPACE R man inst tests
+    echo Bump Version in DESCRIPTION.
+    exit /b 1
+  )
+  set SKIPTAG=1
+  echo   v%VER% is already tagged and the package sources match it
 )
 :skipgit
 
@@ -105,13 +121,19 @@ if /i "%MODE%"=="build" goto :done
 REM --- 5. git tag ------------------------------------------------------
 echo.
 echo [5/6] git tag v%VER%
-git tag -a "v%VER%" -m "%PKG% %VER%"
-if errorlevel 1 goto :fail
+if defined SKIPTAG (
+  echo   already tagged, pushing the branch only
+) else (
+  git tag -a "v%VER%" -m "%PKG% %VER%"
+  if errorlevel 1 goto :fail
+)
 git push origin HEAD
 if errorlevel 1 goto :fail
-git push origin "v%VER%"
-if errorlevel 1 goto :fail
-echo   pushed v%VER%
+if not defined SKIPTAG (
+  git push origin "v%VER%"
+  if errorlevel 1 goto :fail
+)
+echo   v%VER% is on the remote
 
 if /i "%MODE%"=="tag" goto :done
 
