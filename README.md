@@ -79,14 +79,19 @@ Versions are git tags. There are no per-version directories.
 ```
 release.bat            check and build only, nothing leaves the box
 release.bat tag        the above, then create and push tag vX.Y.Z
-release.bat publish    the above, then upload to r.acr.kr
+release.bat cran       build and check --as-cran, then print what is
+                       left to do by hand
 ```
 
 The package name and version come from `DESCRIPTION`, so bumping a
 version means editing that one line. The script regenerates the
 reference manual with `--internals` (without it `Rd2pdf` silently drops
-every topic marked `\keyword{internal}`), compacts the PDF, and refuses
-to tag or publish unless `R CMD check` ends in `Status: OK`.
+every topic marked `\keyword{internal}`) and refuses to tag unless
+`R CMD check` ends in `Status: OK`. The manual is a local artifact: CRAN
+builds its own, so it is not shipped in the tarball.
+
+CRAN submission itself is a web form, so `release.bat cran` stops after
+checking and prints the remaining steps.
 
 ## License
 

@@ -3,7 +3,7 @@ deconv = function(z, x) {
   len.x = length(x)
 
   if (len.z < len.x) {
-    cat("Ouput Observation(z) should be longer than input or disposition (x)")
+    message("Output observation (z) should be longer than input or disposition (x)")
     return()
   } else {
     z = c(z, rep(0, len.z))

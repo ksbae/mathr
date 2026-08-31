@@ -4,7 +4,11 @@ ChkFx = function(func, x)
   } else if (length(x) == 1) { Given = "scalar"
   } else { Given = "vector" }
 
+  # options() returns the previous settings as a list, so the restore
+  # has to pass that list back whole. Passing it as the value left
+  # show.error.message holding a list. on.exit covers early returns.
   DefOpt = options(show.error.message = FALSE)
+  on.exit(options(DefOpt), add = TRUE)
 
   if (Given == "matrix") {
     Repeat = "Yes"
@@ -90,7 +94,6 @@ ChkFx = function(func, x)
     }
   }
 
-  options(show.error.message = DefOpt)
   Result = c(CaseNo, minInput, minOutput, Given, Repeat, Gradient)
   names(Result) = c("CaseNo", "minInput", "minOutput", "Given", "Repeat", "Gradient")
   return(Result)

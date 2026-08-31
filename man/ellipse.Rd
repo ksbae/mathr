@@ -4,7 +4,7 @@
 \description{
 Plot ellipse and return coordinates.
 }
-\usage{ellipse(center=c(0, 0), radius=c(2, 1), alpha=0, npoints=100, add=F, ...)}
+\usage{ellipse(center=c(0, 0), radius=c(2, 1), alpha=0, npoints=100, add=FALSE, ...)}
 \arguments{
   \item{center}{coordinate of center point}
   \item{radius}{length of long and short axes}
@@ -21,13 +21,10 @@ coordinates of points used to plot.
 }
 \author{Kyun-Seop Bae <k@acr.kr>}
 \examples{
-dev.new()
 ellipse(asp=1)
 
-dev.new()
 ellipse(c(0, 0), c(3, 2), pi/4, asp=1)
 
-dev.new()
 ellipse(c(1, 1), c(3, 2), pi/4, asp=1)
 points(1, 1, pch="+")
 abline(v=1, h=1, lty=3)

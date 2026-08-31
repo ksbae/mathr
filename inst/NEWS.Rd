@@ -1,6 +1,27 @@
 \name{NEWS}
 \title{News for Package \pkg{mathr}}
 
+\section{Version 0.1.2 (2026-08-31)}{
+  \itemize{
+    \item{\code{ChkFx} left \code{show.error.message} holding a list
+          instead of restoring it. \code{options()} returns the previous
+          settings as a list, and that list was being passed back as the
+          value. The restore now passes the list whole and runs from
+          \code{on.exit}, so early returns are covered too.}
+    \item{\code{mlr(Plot = TRUE)} no longer opens a device of its own
+          and no longer leaves \code{par()} changed. It draws on the
+          current device and restores the previous settings on exit.}
+    \item{Diagnostics in \code{mlr} and \code{deconv} go through
+          \code{message()} rather than \code{cat()}, so they can be
+          suppressed and do not write to stdout.}
+    \item{The \code{ellipse} examples no longer call \code{dev.new()}.}
+    \item{Packaging for CRAN: \code{Authors@R} replaces the free text
+          author fields, the obsolete \code{LazyLoad} field is gone, and the
+          reference manual is no longer shipped under inst/doc, since CRAN
+          builds its own and the copy was 86 percent of the tarball.}
+  }
+}
+
 \section{Version 0.1.1 (2026-08-31)}{
   \itemize{
     \item{\code{Qpois} and \code{Qbinom} now follow the quantile

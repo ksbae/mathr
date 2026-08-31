@@ -7,18 +7,18 @@ mlr <- function(y, x.raw, standardize=0, Plot=FALSE)
 {
   x.mat <- as.matrix(x.raw)
   if (length(y) != nrow(x.mat)) {
-    cat("Numbers of rows of x matrix and y vector are different.\n")
+    message("Numbers of rows of x matrix and y vector are different.")
     return(NULL)
   }
   if (anyNA(y) | anyNA(x.mat)) {
-    cat("Missing values in y or x. Remove them before calling mlr().\n")
+    message("Missing values in y or x. Remove them before calling mlr().")
     return(NULL)
   }
   # kappa() is only a diagnostic for the unstandardized fit, so do not let it
   # run (and possibly fail) on a path that never uses it.
   if (standardize == 0) {
     CondNum <- kappa(x.mat)
-    if (CondNum > 999) cat(paste("Condition Number is ", CondNum, ". Consider standardization !\n", sep=""))
+    if (CondNum > 999) message("Condition Number is ", CondNum, ". Consider standardization !")
   }
 
   n <- length(y)
@@ -77,7 +77,7 @@ mlr <- function(y, x.raw, standardize=0, Plot=FALSE)
     z <- x[-i,]
     bi[i,] <- solve(t(z) %*% z) %*% t(z) %*% y[-i]
   }
-  bm <- matrix(rep(t(b),n), byrow=T, ncol=p)
+  bm <- matrix(rep(t(b),n), byrow=TRUE, ncol=p)
   DFBETAS = (bm - bi)/sqrt(MSEi %*% diag(solve(t(x) %*% x)))
 
   COVRATIO <- matrix(nrow=n)
@@ -91,7 +91,10 @@ mlr <- function(y, x.raw, standardize=0, Plot=FALSE)
   names(res2) <- c("Residual", "R-Student", "hat", "Cook's D", "COV-Ratio", "DFFITS", namelist)
 
   if (Plot == TRUE) {
-    dev.new()
+    # Draw on the current device and hand the user's par() back
+    # untouched, rather than opening a device of our own.
+    oldpar <- par(no.readonly = TRUE)
+    on.exit(par(oldpar), add = TRUE)
     par(mfrow=c(2,2), oma=c(1,1,3,1))
     plot(D, type="n", xlab="Index", ylab="Cook's Distance")
     for(i in 1:n) {
@@ -117,7 +120,7 @@ mlr <- function(y, x.raw, standardize=0, Plot=FALSE)
       else points(COVRATIO[i], DFFITS[i])
     }
   
-    mtext("Influence Diagnostics", outer=T, side=3)
+    mtext("Influence Diagnostics", outer=TRUE, side=3)
   }
 
   result <- list(res1, res2)

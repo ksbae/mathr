@@ -3,3 +3,5 @@
 ^\.gitignore$
 ^\.Rbuildignore$
 ^release\.bat$
+^inst/doc$
+^cran-comments\.md$

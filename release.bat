@@ -7,7 +7,9 @@ REM  whose versions are git tags. Run it from the package directory.
 REM
 REM    release.bat            check and build only, nothing leaves the box
 REM    release.bat tag        the above, then create and push tag vX.Y.Z
-REM    release.bat publish    the above, then upload to r.acr.kr
+REM    release.bat cran       build and check --as-cran, then print what
+REM                           is left to do by hand. CRAN submission is a
+REM                           web form, so nothing is uploaded here.
 REM
 REM  The package name and version are read from DESCRIPTION, so there is
 REM  nothing to edit here when the version changes.
@@ -27,6 +29,7 @@ REM  Done before anything slow. The reference manual is a build artifact
 REM  (Rd2pdf stamps a creation date, so it is never byte identical) and
 REM  is not tracked, which is what lets this check stay meaningful.
 if /i "%MODE%"=="build" goto :skipgit
+if /i "%MODE%"=="cran" goto :skipgit
 git rev-parse --git-dir >nul 2>&1
 if errorlevel 1 ( echo Not a git repository. & exit /b 1 )
 for /f %%s in ('git status --porcelain --untracked-files=no') do (
@@ -92,8 +95,10 @@ if not exist "%PKG%_%VER%.tar.gz" ( echo %PKG%_%VER%.tar.gz was not produced & p
 
 REM --- 3. check -------------------------------------------------------
 echo.
-echo [3/6] R CMD check
-R CMD check "%PKG%_%VER%.tar.gz"
+set CHECKARGS=
+if /i "%MODE%"=="cran" set CHECKARGS=--as-cran
+echo [3/6] R CMD check %CHECKARGS%
+R CMD check %CHECKARGS% "%PKG%_%VER%.tar.gz"
 if errorlevel 1 ( popd & goto :fail )
 findstr /c:"Status: OK" "%PKG%.Rcheck\00check.log" >nul
 if errorlevel 1 (
@@ -117,6 +122,7 @@ if exist "%STAGE%\%PKG%_%VER%.zip" copy /y "%STAGE%\%PKG%_%VER%.zip" "%~dp0" >nu
 echo   artifacts copied to %~dp0
 
 if /i "%MODE%"=="build" goto :done
+if /i "%MODE%"=="cran" goto :cran
 
 REM --- 5. git tag ------------------------------------------------------
 echo.
@@ -137,22 +143,25 @@ echo   v%VER% is on the remote
 
 if /i "%MODE%"=="tag" goto :done
 
-REM --- 6. r.acr.kr -----------------------------------------------------
+REM --- 6. CRAN hand-off ----------------------------------------------
+:cran
 echo.
-echo [6/6] publish to r.acr.kr
-copy /y "%~dp0%PKG%_%VER%.tar.gz" C:\G\r.acr.kr\src\contrib\ >nul
-if errorlevel 1 goto :fail
-Rscript C:/G/RP/PackList.R
-if errorlevel 1 goto :fail
-copy /y C:\G\r.acr.kr\src\contrib\PACKAGES C:\G\r.acr.kr\index.txt >nul
-
-call gsutil cp C:\G\r.acr.kr\index.htm gs://r.acr.kr
-call gsutil cp "C:\G\r.acr.kr\src\contrib\%PKG%_%VER%.tar.gz" gs://r.acr.kr/src/contrib/
-call gsutil cp C:\G\r.acr.kr\src\contrib\PACKAGES     gs://r.acr.kr/src/contrib/
-call gsutil cp C:\G\r.acr.kr\src\contrib\PACKAGES.gz  gs://r.acr.kr/src/contrib/
-call gsutil cp C:\G\r.acr.kr\src\contrib\PACKAGES.rds gs://r.acr.kr/src/contrib/
-call gcloud storage buckets add-iam-policy-binding gs://r.acr.kr --member=allUsers --role=roles/storage.objectViewer
-echo   published
+echo [6/6] CRAN
+echo.
+echo   Tarball ready for submission:
+echo     %~dp0%PKG%_%VER%.tar.gz
+echo.
+echo   check --as-cran passed here, but CRAN also builds on r-devel and
+echo   on platforms this machine is not. Check there before submitting:
+echo.
+echo     Rscript -e "devtools::check_win_devel()"
+echo     Rscript -e "rhub::rhub_check()"
+echo.
+echo   Then submit the tarball at
+echo     https://cran.r-project.org/submit.html
+echo   together with cran-comments.md.
+echo.
+goto :done
 
 :done
 echo.

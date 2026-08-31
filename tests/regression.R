@@ -102,23 +102,32 @@ stopifnot(identical(as.character(fit.u[[1L]][["Variable"]]),
                     c("Intercept", "x1", "x2")))
 stopifnot(tol(coefs(fit.u), b0, 1e-10))
 
+## mlr reports through message(), so diagnostics land on the condition
+## system rather than stdout. Collect them without letting them print.
+catch <- function(expr) {
+  m <- character(0)
+  val <- withCallingHandlers(expr, message = function(e) {
+    m <<- c(m, conditionMessage(e)); invokeRestart("muffleMessage") })
+  list(value = val, msg = m)
+}
+
 ## ---- mlr: missing values are reported, not silently propagated ------
 Xna <- X; Xna$a[3] <- NA
 for (s in 0:3) {
-  msg <- capture.output(fit.na <- mlr(y, Xna, standardize = s))
-  stopifnot(is.null(fit.na), any(grepl("Missing value", msg)))
+  r <- catch(mlr(y, Xna, standardize = s))
+  stopifnot(is.null(r$value), any(grepl("Missing value", r$msg)))
 }
-msg <- capture.output(fit.na <- mlr(replace(y, 5, NA), X))
-stopifnot(is.null(fit.na), any(grepl("Missing value", msg)))
+r <- catch(mlr(replace(y, 5, NA), X))
+stopifnot(is.null(r$value), any(grepl("Missing value", r$msg)))
 
 ## ---- mlr: the condition-number diagnostic is standardize = 0 only ---
 set.seed(2)
 Xk <- data.frame(a = rnorm(n, 1, 0.1), b = rnorm(n, 1e5, 1e3))
 yk <- 1 + Xk$a + rnorm(n)
 stopifnot(kappa(as.matrix(Xk)) > 999)                       # test is meaningful
-stopifnot(any(grepl("Condition Number", capture.output(mlr(yk, Xk, 0)))))
+stopifnot(any(grepl("Condition Number", catch(mlr(yk, Xk, 0))$msg)))
 for (s in 1:3) {
-  stopifnot(!any(grepl("Condition Number", capture.output(mlr(yk, Xk, s)))))
+  stopifnot(!any(grepl("Condition Number", catch(mlr(yk, Xk, s))$msg)))
 }
 
 
@@ -239,4 +248,23 @@ for (cs in list(c(1, 0.5), c(2, 0.5), c(5, 0.1), c(10, 0.5), c(20, 0.3),
 }
 ## Endpoints.
 stopifnot(Qbinom(0, 20, 0.3) == 0, Qbinom(1, 20, 0.3) == 20)
+## ---- global state must be left alone --------------------------------
+## CRAN policy, and two real bugs before 0.1.2: ChkFx set
+## show.error.message to a list instead of restoring it, and
+## mlr(Plot = TRUE) opened a device and kept the par() it set.
+opt.before <- getOption("show.error.message")
+invisible(ChkFx(function(x) sum(x^2), c(1, 2)))
+stopifnot(identical(getOption("show.error.message"), opt.before),
+          !is.list(getOption("show.error.message")))
+
+pdf(file.path(tempdir(), "mathr-regression.pdf"))
+nd.before <- length(dev.list())
+par.before <- par(no.readonly = TRUE)
+invisible(catch(mlr(y, X, Plot = TRUE)))
+par.after <- par(no.readonly = TRUE)
+stopifnot(length(dev.list()) == nd.before,
+          identical(par.before$mfrow, par.after$mfrow),
+          identical(par.before$oma,   par.after$oma))
+invisible(dev.off())
+
 cat("all regression tests passed\n")

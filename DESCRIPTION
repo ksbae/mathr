@@ -1,13 +1,18 @@
 Package: mathr
-Version: 0.1.1
-Title: Scientific Computation using R
-Description: This is a collection of undergraduate level mathematical concepts essential for working at quantitative area. This includes calculus, distribution functions, random variate generation, linear algebra, differential equation, and optimization, but is suitable for one semester. Successor to the 'math' package, with the special and distribution functions reimplemented from freely licensed sources.
+Version: 0.1.2
+Title: Scientific Computation Using R
+Description: A collection of undergraduate level mathematical routines for
+    quantitative work, covering calculus, distribution functions, random
+    variate generation, linear algebra, differential equations and
+    optimization, sized for one semester. Successor to the 'math' package,
+    with the special functions and the distribution functions built on them
+    reimplemented from freely licensed sources.
 Depends: R (>= 3.0.0)
-Author: Kyun-Seop Bae [aut, cre]
-Maintainer: Kyun-Seop Bae <k@acr.kr>
-Copyright: 2018-, Kyun-Seop Bae
+Authors@R: person("Kyun-Seop", "Bae", email = "k@acr.kr",
+    role = c("aut", "cre"))
+Copyright: 2018-2026, Kyun-Seop Bae
 License: GPL-3
+Encoding: UTF-8
 NeedsCompilation: no
-LazyLoad: yes
 URL: https://github.com/ksbae/mathr
 BugReports: https://github.com/ksbae/mathr/issues
