@@ -4,9 +4,7 @@ Title: Scientific Computation Using R
 Description: A collection of undergraduate level mathematical routines for
     quantitative work, covering calculus, distribution functions, random
     variate generation, linear algebra, differential equations and
-    optimization, sized for one semester. Successor to the 'math' package,
-    with the special functions and the distribution functions built on them
-    reimplemented from freely licensed sources.
+    optimization, sized for one semester.
 Depends: R (>= 3.0.0)
 Authors@R: person("Kyun-Seop", "Bae", email = "k@acr.kr",
     role = c("aut", "cre"))

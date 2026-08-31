@@ -74,49 +74,35 @@
 
 \section{Version 0.1.0 (2026-08-31)}{
   \itemize{
-    \item{First release of \pkg{mathr}.}
-    \item{The special functions, and every distribution function
-          built on them, follow freely licensed reference
-          implementations. Each is attributed in the help page of the
-          function concerned.}
-    \item{\code{gammln} now uses the Lanczos g=7 coefficients of the
-          GNU Scientific Library, by way of \code{LGAMMA}, which
-          already carried them.}
-    \item{\code{gser}, \code{gcf}, \code{gammp} and \code{gammq} follow
-          the Cephes series and continued fraction as redistributed in
-          ALGLIB. \code{gammpapprox} is kept as a compatibility wrapper:
-          the Cephes forms converge over the whole range, so the
-          separate large-a branch is no longer needed.}
-    \item{\code{betacf} and \code{betai} follow the continued fraction
-          and symmetry transform of the GNU Scientific Library.
-          \code{betaiapprox} is kept as a compatibility wrapper.}
-    \item{\code{erf} and \code{erfc} are now obtained from the
-          incomplete gamma function through erf(x) = P(1/2, x^2) and
-          erfc(x) = Q(1/2, x^2). This is both table free and more
-          accurate in the far tail: erfc is now correct to 1e-13
-          relative down to erfc(26) = 5.7e-296, where the previous
-          Chebyshev fit and the rational fits of other libraries have
-          lost their significant digits. \code{erfccheb} is kept as a
-          compatibility wrapper.}
-    \item{\code{inverfc} uses the Cephes normal quantile ndtri as
-          redistributed in ALGLIB.}
-    \item{\code{invgammp} and \code{invbetai} are now bracketed Newton
-          iterations on the corrected forward functions, following the
-          strategy of gsl_cdf_gamma_Pinv and gsl_cdf_beta_Pinv. Above
-          the median the residual is formed in the upper tail, which
-          removes a loss of about eight digits that the previous
-          lower-tail form suffered for p near 1.}
-    \item{Every distribution function was checked against the base R
+    \item{First release.}
+    \item{Calculus, distribution functions, random variate generation,
+          linear algebra, differential equations and optimization, sized
+          for one semester.}
+    \item{The special functions, and every distribution function built
+          on them, follow freely licensed reference implementations, each
+          attributed in the help page of the function concerned.
+          \code{gammln} uses the Lanczos g=7 coefficients of the GNU
+          Scientific Library. \code{gser}, \code{gcf}, \code{gammp} and
+          \code{gammq} follow the Cephes series and continued fraction as
+          redistributed in ALGLIB. \code{betacf} and \code{betai} follow
+          the continued fraction and symmetry transform of the GNU
+          Scientific Library. \code{inverfc} uses the Cephes normal
+          quantile ndtri.}
+    \item{\code{erf} and \code{erfc} come from the incomplete gamma
+          function through erf(x) = P(1/2, x^2) and erfc(x) = Q(1/2, x^2).
+          That needs no coefficient table of its own and stays accurate
+          far into the tail: erfc holds to 1e-13 relative down to
+          erfc(26) = 5.7e-296, where a rational fit in x alone has long
+          since lost its significant digits.}
+    \item{\code{invgammp} and \code{invbetai} are bracketed Newton
+          iterations on the forward functions, following the strategy of
+          gsl_cdf_gamma_Pinv and gsl_cdf_beta_Pinv. Above the median the
+          residual is formed in the upper tail, which avoids the loss of
+          about eight digits that a lower-tail residual suffers for p
+          near 1.}
+    \item{\code{gammpapprox}, \code{betaiapprox} and \code{erfccheb} are
+          thin wrappers over \code{gammp}, \code{betai} and \code{erfc}.}
+    \item{Every distribution function is checked against the base R
           equivalent over a wide parameter grid. See tests/.}
-    \item{\code{Ppois(0, lam)} returned 0 instead of exp(-lam). The
-          general branch, Q(n+1, lam), was already correct, so the
-          special case has been removed. \code{Qpois} already assumed
-          the corrected value.}
-    \item{\code{Pbinom(k, n, pe)} computed P(X <= k-1), one step away
-          from the P(X <= k) its help page documents, and errored for
-          k = 0. It is now I(1-pe; n-k, k+1), which also keeps the far
-          lower tail accurate: Pbinom(0, 50, 0.7) is 0.3^50 = 7.2e-27,
-          where the complementary form cancels to zero.}
-    
   }
 }
