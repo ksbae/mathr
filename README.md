@@ -1,0 +1,82 @@
+# mathr
+
+Scientific computation using R: a collection of undergraduate level
+mathematical routines covering calculus, distribution functions, random
+variate generation, linear algebra, differential equations and
+optimization, sized for one semester.
+
+`mathr` succeeds the `math` package. Function names and calling
+conventions are unchanged, so existing code runs after swapping the
+`library()` call.
+
+## Install
+
+```r
+# install.packages("remotes")
+remotes::install_github("ksbae/mathr")
+```
+
+## Why this package exists
+
+`math` implemented its special functions and, through them, every
+distribution function as ports of *Numerical Recipes in C 2e / 3e*.
+That code and its fitted constants are copyrighted and cannot be
+redistributed under the GPL. `mathr` replaces all of it.
+
+Removed in full:
+
+- the 14-term log gamma coefficient set,
+- the 18-point Gauss-Legendre quadrature tables used by the
+  large-parameter incomplete gamma and incomplete beta branches,
+- the 28-term Chebyshev fit for the complementary error function,
+- the fitted starting values of the incomplete beta inverse.
+
+Replaced by, in each case a freely licensed source:
+
+| Function | Source |
+|---|---|
+| `gammln` | Lanczos g=7 coefficients as used by GSL `gsl_sf_lngamma` |
+| `gser`, `gcf`, `gammp`, `gammq` | Cephes `igam` / `igamc`, as redistributed in ALGLIB |
+| `betacf`, `betai` | GSL `beta_cont_frac` / `gsl_sf_beta_inc` (A and S 26.5.8) |
+| `erf`, `erfc` | the incomplete gamma relation erf(x) = P(1/2, x^2), erfc(x) = Q(1/2, x^2) |
+| `inverfc` | Cephes `ndtri`, as redistributed in ALGLIB |
+| `invgammp`, `invbetai` | bracketed Newton, following GSL `gsl_cdf_gamma_Pinv` / `gsl_cdf_beta_Pinv` |
+
+`gammpapprox`, `betaiapprox` and `erfccheb` are kept as compatibility
+wrappers. The routines they used to accelerate now converge over the
+whole range on their own.
+
+Untouched, because they were never Numerical Recipes: `EXP`, `LOG`,
+`SQRT` (Cody and Waite, 1980), `PolyNom3` (A and S 26.2.16), `GQuad8`
+(A and S 25.4), `GAMMA` and `LGAMMA` (already the GSL Lanczos set),
+`tableFactorial`.
+
+## Accuracy
+
+Every distribution function is checked against its base R equivalent
+over a wide parameter grid in `tests/regression.R`. Worst observed
+relative error:
+
+| | max relative error vs base R |
+|---|---|
+| `gammp`, `gammq` vs `pgamma` | 2.2e-13 |
+| `betai` vs `pbeta` | 7.4e-12 |
+| `erfc` vs `pnorm`, down to erfc(26) = 5.7e-296 | 3.3e-13 |
+| `invgammp` vs `qgamma` | 4.8e-14 |
+| `invbetai` vs `qbeta` | 6.2e-13 |
+| `P*`, `Q*`, `D*` | better than 1e-10 throughout |
+
+`erfc` is the one place where the new implementation is not merely
+equivalent but better. A rational fit in `x` alone, including the one
+ALGLIB ships, has lost eight significant digits by erfc(10) and is
+usually truncated to zero beyond it. The incomplete gamma relation
+holds to full precision down to the underflow limit.
+
+## License
+
+GPL-3. The routines follow the GNU Scientific Library (GPL-3) and
+ALGLIB Free Edition (GPL-2 or later), both compatible with GPL-3.
+
+## Author
+
+Kyun-Seop Bae <k@acr.kr>

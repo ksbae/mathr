@@ -1,0 +1,19 @@
+\name{Pbinom}
+\alias{Pbinom}
+\title{Cumulative probability of Poisson distribution}
+\description{
+Calculate the cumulative probability P(X <= k) of a binomial distribution
+}
+\usage{Pbinom(k, n, pe)}
+\arguments{
+  \item{k}{count k of wanted event for a binomial distribution}
+  \item{n}{total number of trials n of a binomial distribution}
+  \item{pe}{the probability of wanted event for a binomial distribution}
+}
+\details{
+It calculates the cumulative probability for k of a Poisson distribution.
+}
+\value{
+  cumulative probability till k
+}
+\author{Kyun-Seop Bae <k@acr.kr>}

@@ -1,0 +1,4 @@
+exportPattern("^[[:alpha:]]+")
+importFrom("graphics", "par", "plot", "abline", "mtext", "points", "text", "lines")
+importFrom("grDevices", "dev.new")
+importFrom("stats", "fft", "loess", "predict", "runif", "pt", "sd")

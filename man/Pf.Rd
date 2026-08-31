@@ -1,0 +1,19 @@
+\name{Pf}
+\alias{Pf}
+\title{Cumulative probability of F distribution}
+\description{
+Calculate the cumulative probability for f of an F distribution
+}
+\usage{Pf(f, nu1, nu2)}
+\arguments{
+  \item{f}{f value for an F distribution}
+  \item{nu1}{the shape parameter nu1 of an F distribution}
+  \item{nu2}{the shape parameter nu2 of an F distribution}
+}
+\details{
+It calculates the cumulative probability for f of an F distribution.
+}
+\value{
+  cumulative probability till f
+}
+\author{Kyun-Seop Bae <k@acr.kr>}

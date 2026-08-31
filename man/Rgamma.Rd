@@ -1,0 +1,22 @@
+\name{Rgamma}
+\alias{Rgamma}
+\title{Random deviate from gamma distribution}
+\description{
+Generate random numbers from a gamma distribution
+}
+\usage{Rgamma(n, alph, bet)}
+\arguments{
+  \item{n}{count, how many do you want}
+  \item{alph}{shape parameter alpha of a gamma distribution}
+  \item{bet}{shape parameter beta of a gamma disribution}
+}
+\details{
+It uses acceptance-rejection method.
+}
+\value{
+  a vector of random numbers
+}
+\references{
+  Banks J. Handbook of simulation (1998) pp152-153
+}
+\author{Kyun-Seop Bae <k@acr.kr>}
