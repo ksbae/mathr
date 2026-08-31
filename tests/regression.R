@@ -215,14 +215,28 @@ stopifnot(relerr(V(function(z) Df(z, 4, 9))(xx), df(xx, 4, 9)) < 1e-12)
 stopifnot(relerr(V(function(k) Dpois(k, 4))(0:20), dpois(0:20, 4)) < 1e-12)
 stopifnot(relerr(V(function(k) Dbinom(k, 20, 0.3))(0:20), dbinom(0:20, 20, 0.3)) < 1e-12)
 
-## Qpois and Qbinom keep the package convention, the largest k whose
-## cumulative probability does not exceed p, which is one below the
-## base R quantile. Check the package convention, not base R.
-pk <- c(0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99)
-nq <- V(function(p) Qpois(p, 4))(pk)
-stopifnot(all(V(function(k) Ppois(k, 4))(nq) <= pk),
-          all(pk < V(function(k) Ppois(k, 4))(nq + 1)))
-kq <- V(function(p) Qbinom(p, 20, 0.3))(pk)
-stopifnot(all(V(function(k) Pbinom(k, 20, 0.3))(kq) <= pk),
-          all(pk < V(function(k) Pbinom(k, 20, 0.3))(kq + 1)))
+## Qpois and Qbinom follow the base R convention: the smallest k whose
+## cumulative probability reaches p. Checked over a wide parameter grid.
+##
+## Exact ties are the one place the two can still part. Feeding base R's
+## own cumulative probability back in as p asks which side of a value
+## that both packages compute to about 1e-12 the answer falls on, and
+## Ppois and Pbinom are built from the incomplete gamma and beta rather
+## than the saddle point algorithms base R uses. Ordinary p, the case
+## below, must agree exactly.
+pk <- c(1e-8, 1e-6, 1e-4, 0.001, 0.005, 0.01, 0.025, 0.05, 0.1, 0.2,
+        0.25, 0.4, 0.5, 0.6, 0.75, 0.8, 0.9, 0.95, 0.975, 0.99, 0.995,
+        0.999, 1 - 1e-6, 1 - 1e-8)
+for (lam in c(0.05, 0.1, 0.5, 1, 2, 4, 10, 25, 50, 100, 200, 500, 1000)) {
+  stopifnot(identical(as.numeric(V(function(p) Qpois(p, lam))(pk)),
+                      as.numeric(qpois(pk, lam))))
+}
+for (cs in list(c(1, 0.5), c(2, 0.5), c(5, 0.1), c(10, 0.5), c(20, 0.3),
+                c(30, 0.02), c(50, 0.7), c(100, 0.5), c(100, 0.9),
+                c(200, 0.05), c(500, 0.4), c(1000, 0.01), c(1000, 0.999))) {
+  stopifnot(identical(as.numeric(V(function(p) Qbinom(p, cs[1], cs[2]))(pk)),
+                      as.numeric(qbinom(pk, cs[1], cs[2]))))
+}
+## Endpoints.
+stopifnot(Qbinom(0, 20, 0.3) == 0, Qbinom(1, 20, 0.3) == 20)
 cat("all regression tests passed\n")

@@ -1,6 +1,24 @@
 \name{NEWS}
 \title{News for Package \pkg{mathr}}
 
+\section{Version 0.1.1 (2026-08-31)}{
+  \itemize{
+    \item{\code{Qpois} and \code{Qbinom} now follow the quantile
+          convention of base R, the smallest k whose cumulative
+          probability reaches p. They previously returned the largest k
+          whose cumulative probability did not exceed p, one below
+          \code{stats::qpois} and \code{stats::qbinom} for every p. The
+          two now agree exactly over a wide parameter grid; see tests/.}
+    \item{\code{Qbinom(p, n, pe)} returns n for p = 1, and both
+          functions compare against a tolerance sized to the accuracy of
+          \code{Ppois} and \code{Pbinom}, about 1e-12. Feeding a
+          cumulative probability straight back in as p can still land on
+          the other side of a tie, because those two are built from the
+          incomplete gamma and beta rather than the saddle point
+          algorithms base R uses.}
+  }
+}
+
 \section{Version 0.1.0 (2026-08-31)}{
   \itemize{
     \item{First release of \pkg{mathr}, the successor to \pkg{math}

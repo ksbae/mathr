@@ -1,5 +1,5 @@
 Package: mathr
-Version: 0.1.0
+Version: 0.1.1
 Title: Scientific Computation using R
 Description: This is a collection of undergraduate level mathematical concepts essential for working at quantitative area. This includes calculus, distribution functions, random variate generation, linear algebra, differential equation, and optimization, but is suitable for one semester. Successor to the 'math' package, with the special and distribution functions reimplemented from freely licensed sources.
 Depends: R (>= 3.0.0)

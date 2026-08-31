@@ -8,14 +8,21 @@ Qpois = function(p, lam)
     warning("bad p in Poisson distribution")
     return(NULL)
   }
-  if (p < exp(-lam)) return (0)
+  # Quantile convention of base R: the smallest n whose cumulative
+  # probability reaches p. Ppois is built from the incomplete gamma
+  # and beta and agrees with base R to about 1e-12 relative, so a
+  # cumulative probability may land just under p and push the
+  # answer up by one. The fuzz is sized to that accuracy; base R
+  # applies the same guard with a tighter constant.
+  pf = p * (1 - 4096*.Machine$double.eps)
+  if (pf <= exp(-lam)) return (0)
 
   inc = 1
   n = floor(max(sqrt(lam), 5.))
-  if (p < Ppois(n, lam)) {
+  if (pf < Ppois(n, lam)) {
     n = max(n - inc, 0)
     inc = inc * 2
-    while (p < Ppois(n, lam)) {
+    while (pf < Ppois(n, lam)) {
       n = max(n - inc, 0)
       inc = inc * 2
     }
@@ -24,7 +31,7 @@ Qpois = function(p, lam)
   } else {
     n = n + inc
     inc = inc * 2
-    while (p > Ppois(n, lam)) {
+    while (pf > Ppois(n, lam)) {
       n = n + inc
       inc = inc * 2
     }
@@ -33,9 +40,10 @@ Qpois = function(p, lam)
   }
   while (nu - nl > 1) {
     n = (nl + nu)/2
-    if (p < Ppois(n, lam)) nu = n
+    if (pf < Ppois(n, lam)) nu = n
     else nl = n
   }
-  return (nl)
+  if (Ppois(nl, lam) >= pf) return (nl)
+  return (nu)
 }
 

@@ -72,6 +72,22 @@ ALGLIB ships, has lost eight significant digits by erfc(10) and is
 usually truncated to zero beyond it. The incomplete gamma relation
 holds to full precision down to the underflow limit.
 
+## Release
+
+Versions are git tags. There are no per-version directories.
+
+```
+release.bat            check and build only, nothing leaves the box
+release.bat tag        the above, then create and push tag vX.Y.Z
+release.bat publish    the above, then upload to r.acr.kr
+```
+
+The package name and version come from `DESCRIPTION`, so bumping a
+version means editing that one line. The script regenerates the
+reference manual with `--internals` (without it `Rd2pdf` silently drops
+every topic marked `\keyword{internal}`), compacts the PDF, and refuses
+to tag or publish unless `R CMD check` ends in `Status: OK`.
+
 ## License
 
 GPL-3. The routines follow the GNU Scientific Library (GPL-3) and
