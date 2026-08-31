@@ -5,3 +5,4 @@
 ^release\.bat$
 ^inst/doc$
 ^cran-comments\.md$
+^\.github$
