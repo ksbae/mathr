@@ -100,15 +100,40 @@ if /i "%MODE%"=="cran" set CHECKARGS=--as-cran
 echo [3/6] R CMD check %CHECKARGS%
 R CMD check %CHECKARGS% "%PKG%_%VER%.tar.gz"
 if errorlevel 1 ( popd & goto :fail )
+REM  build and tag demand a spotless run. cran mode does not:
+REM  --as-cran always raises a "New submission" NOTE for a package CRAN
+REM  has not seen before, and that one is not something to fix. So cran
+REM  mode refuses only on ERROR or WARNING and prints any NOTE.
+if /i "%MODE%"=="cran" goto :softcheck
 findstr /c:"Status: OK" "%PKG%.Rcheck\00check.log" >nul
 if errorlevel 1 (
   echo.
-  echo R CMD check did not end in Status: OK. Nothing will be tagged or
-  echo published. See %STAGE%\%PKG%.Rcheck\00check.log
+  echo R CMD check did not end in Status: OK. Nothing will be tagged.
+  echo See %STAGE%\%PKG%.Rcheck\00check.log
   popd
   exit /b 1
 )
 echo   Status: OK
+goto :checkdone
+
+:softcheck
+findstr /r /c:"^Status:.*ERROR" /c:"^Status:.*WARNING" "%PKG%.Rcheck\00check.log" >nul
+if not errorlevel 1 (
+  echo.
+  echo check raised an ERROR or a WARNING. Fix those before submitting.
+  findstr /c:"Status:" "%PKG%.Rcheck\00check.log"
+  popd
+  exit /b 1
+)
+findstr /c:"Status: OK" "%PKG%.Rcheck\00check.log" >nul
+if errorlevel 1 (
+  echo.
+  echo   NOTEs raised, review each one:
+  findstr /c:"Status:" "%PKG%.Rcheck\00check.log"
+) else (
+  echo   Status: OK
+)
+:checkdone
 
 REM --- 4. windows binary ----------------------------------------------
 echo.
