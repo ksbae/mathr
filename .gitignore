@@ -3,3 +3,4 @@
 *.zip
 .Rhistory
 .RData
+inst/doc/*.pdf

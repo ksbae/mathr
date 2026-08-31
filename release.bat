@@ -22,6 +22,25 @@ for /f "tokens=2" %%v in ('findstr /b /c:"Version:" DESCRIPTION') do set VER=%%v
 if "%PKG%"=="" ( echo Cannot read Package from DESCRIPTION & exit /b 1 )
 if "%VER%"=="" ( echo Cannot read Version from DESCRIPTION & exit /b 1 )
 
+REM --- 0. git preflight -----------------------------------------------
+REM  Done before anything slow. The reference manual is a build artifact
+REM  (Rd2pdf stamps a creation date, so it is never byte identical) and
+REM  is not tracked, which is what lets this check stay meaningful.
+if /i "%MODE%"=="build" goto :skipgit
+git rev-parse --git-dir >nul 2>&1
+if errorlevel 1 ( echo Not a git repository. & exit /b 1 )
+for /f %%s in ('git status --porcelain --untracked-files=no') do (
+  echo Working tree is not clean. Commit first, then tag.
+  git status --short
+  exit /b 1
+)
+git rev-parse -q --verify "refs/tags/v%VER%" >nul
+if not errorlevel 1 (
+  echo Tag v%VER% already exists. Bump Version in DESCRIPTION first.
+  exit /b 1
+)
+:skipgit
+
 set STAGE=%TEMP%\%PKG%-release
 if exist "%STAGE%" rd /s /q "%STAGE%"
 mkdir "%STAGE%"
@@ -38,6 +57,7 @@ REM  the old a.bat had this step commented out, which is how the
 REM  previous package shipped a manual several versions stale.
 echo.
 echo [1/6] reference manual
+if not exist "inst\doc" mkdir "inst\doc"
 if exist "inst\doc\%PKG%-manual.pdf" del "inst\doc\%PKG%-manual.pdf"
 R CMD Rd2pdf --batch --no-preview --internals --force --output="inst\doc\%PKG%-manual.pdf" .
 if errorlevel 1 goto :fail
@@ -85,16 +105,6 @@ if /i "%MODE%"=="build" goto :done
 REM --- 5. git tag ------------------------------------------------------
 echo.
 echo [5/6] git tag v%VER%
-for /f %%s in ('git status --porcelain --untracked-files=no') do (
-  echo Working tree is not clean. Commit first, then tag.
-  git status --short
-  exit /b 1
-)
-git rev-parse -q --verify "refs/tags/v%VER%" >nul
-if not errorlevel 1 (
-  echo Tag v%VER% already exists. Bump Version in DESCRIPTION first.
-  exit /b 1
-)
 git tag -a "v%VER%" -m "%PKG% %VER%"
 if errorlevel 1 goto :fail
 git push origin HEAD
