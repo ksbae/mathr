@@ -6,10 +6,6 @@ variate generation, linear algebra, differential equations and
 optimization, sized for one semester. The package is best studied with
 its source open: every routine is short and written to be read.
 
-`mathr` succeeds the `math` package. Function names and calling
-conventions are unchanged, so existing code runs after swapping the
-`library()` call.
-
 ## Install
 
 ```r
