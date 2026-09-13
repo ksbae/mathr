@@ -2,14 +2,14 @@
 \alias{Bin2Dec}
 \title{Binary to Decimal Format}
 \description{
-Transforms a binary IEEE 754 format value stored in an arry to a decimal value.
+Transforms a binary IEEE 754 format value stored in an array to a decimal value.
 }
 \usage{Bin2Dec(b)}
 \arguments{
   \item{b}{a binary value stored in an array with IEEE 754 format}
 }
 \details{
-  IEEE 754 defined how the computer present float point number in a binary format.
+  IEEE 754 defines how a computer represents a floating point number in binary format.
   This transforms binary format to decimal value.
 }
 \value{

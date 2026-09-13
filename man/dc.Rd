@@ -1,15 +1,15 @@
 \name{dc}
 \alias{dc}
-\title{deconvolution}
+\title{Deconvolution of two sequences at different time points}
 \description{
-deconvollute two given sequences measured at different time points.
+Deconvolute two given sequences measured at different time points.
 }
 \usage{dc(t1, c1, t2, c2)}
 \arguments{
   \item{t1}{time points of sequence 1}
   \item{c1}{measurement values of sequence 1, to be deconvoluted, Response values}
   \item{t2}{time points of sequence 2}
-  \item{c2}{measurement values of sequence 2. input sequence or unit reponse sequence}
+  \item{c2}{measurement values of sequence 2, input sequence or unit response sequence}
 }
 \details{
 Two measurement sequences with two different time point sequences. The order matters.

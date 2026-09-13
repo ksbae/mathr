@@ -6,7 +6,7 @@ Singular value decomposition by Nash
 }
 \usage{NashSVD(M)}
 \arguments{
-  \item{M}{a symmetric matrix of real values}
+  \item{M}{a matrix of real values}
 }
 \details{
 This can be used for a least square problem.

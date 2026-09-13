@@ -9,6 +9,7 @@ Square-rooting of a real positive number.
   \item{x}{a real positive number to be square-rooted}
 }
 \details{
+Current CPUs support this function at the instruction level, so this implementation is for study rather than for speed.
 Ref. Plauger PJ The Standard C Library. 1992.
 }
 \value{

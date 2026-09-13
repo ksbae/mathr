@@ -1,6 +1,6 @@
 \name{conv0}
 \alias{conv0}
-\title{Convolution using fft}
+\title{Circular convolution using fft}
 \description{
 Convolute two given sequences.
 }
@@ -10,7 +10,7 @@ Convolute two given sequences.
   \item{y}{Response sequence to unit impulse}
 }
 \details{
-One is input and the other is unit response sequence. The lengthes of two sequences should be same. The order is not important
+One is input and the other is unit response sequence. The lengths of the two sequences should be the same. The order is not important.
 }
 \value{
   convolution result.

@@ -1,8 +1,8 @@
 \name{conv}
 \alias{conv}
-\title{Convolution using fft}
+\title{Linear convolution using fft}
 \description{
-Convolute two given sequences and returns real part only.
+Convolute two given sequences and return the real part only.
 }
 \usage{conv(x, y)}
 \arguments{
@@ -10,7 +10,7 @@ Convolute two given sequences and returns real part only.
   \item{y}{Response sequence to unit impulse}
 }
 \details{
-One is input and the other is unit response sequence. The lengthes of two sequences should be same. The order is not important.
+One is input and the other is unit response sequence. The lengths of the two sequences should be the same. The order is not important.
 }
 \value{
   Real part of convolution result.

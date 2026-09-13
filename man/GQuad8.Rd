@@ -2,7 +2,7 @@
 \alias{GQuad8}
 \title{Integration using Gaussian quadrature}
 \description{
-Integrates with given fx, a, b, and n
+Integrates with given fx, a, and b
 }
 \usage{GQuad8(fx, a, b)}
 \arguments{

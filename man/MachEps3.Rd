@@ -1,6 +1,6 @@
 \name{MachEps3}
 \alias{MachEps3}
-\title{Get Meticuluous Positive Epsilon}
+\title{Get Meticulous Positive Epsilon}
 \description{
 Calculate meticulous positive epsilon using bisectional search.
 }
@@ -12,7 +12,7 @@ Calculate meticulous positive epsilon using bisectional search.
   This finds really the smallest epsilon by bisectional search.
 }
 \value{
-  epsilon with "itertation" count attribute
+  epsilon with "iteration" count attribute
 }
 \author{Kyun-Seop Bae <k@acr.kr>}
 \examples{

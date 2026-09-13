@@ -7,10 +7,10 @@ Inverse of \code{gammp} function
 \usage{invgammp(p, a)}
 \arguments{
   \item{p}{integration value between 0 and 1}
-  \item{a}{shape constrant, distribution parameter}
+  \item{a}{shape constant, distribution parameter}
 }
 \details{
-This calls \code{gammln} and \code{gammp}
+This calls \code{gammln}, \code{gammp}, \code{gammq} and \code{inverfc}.
 Ref: Wilson and Hilferty (1931) starting value refined by bracketed Newton steps, following gsl_cdf_gamma_Pinv of the GNU Scientific Library
 }
 \value{

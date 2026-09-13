@@ -1,8 +1,8 @@
 \name{run.p}
 \alias{run.p}
-\title{Probability for Run Test}
+\title{Cumulative probability of run count for run test}
 \description{
-p-value for run test
+Cumulative probability of the run count for the run test
 }
 \usage{run.p(m, n, r)}
 \arguments{
@@ -11,7 +11,7 @@ p-value for run test
   \item{r}{count of run (minimum value = 1)}
 }
 \details{
-It calculates p-value for run test, P(Run count <= r | m, n)
+It calculates P(Run count <= r | m, n), the cumulative probability of the run count that \code{Run.test} turns into a p-value.
 }
 \value{
 probability of run count to be less than or equal to r with m and n. 

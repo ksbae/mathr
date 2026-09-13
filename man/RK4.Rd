@@ -1,6 +1,6 @@
 \name{RK4}
 \alias{RK4}
-\title{Runge-Kutta 4th Order Routine for Numeerical Integration }
+\title{Runge-Kutta 4th Order Routine for Numerical Integration}
 \description{
 Advance \code{State} vector by \code{tau} time with \code{Deriv}
 }
@@ -11,7 +11,7 @@ Advance \code{State} vector by \code{tau} time with \code{Deriv}
   \item{Deriv}{Derivative functions with the input of \code{State} vector}
 }
 \details{
-\code{Derive} should accept \code{State} vector as an input.
+\code{Deriv} should accept \code{State} vector as an input.
 }
 \value{
 A new state vector after time advancement by tau

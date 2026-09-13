@@ -9,7 +9,7 @@ Error function.
   \item{x}{a real value}
 }
 \details{
-This calls \code{erfccheb}.
+This calls \code{gammp}.
 
 Ref: erf(x) = P(1/2, x^2), the relation the GNU Scientific Library uses between gsl_sf_erf and gsl_sf_gamma_inc_P
 }

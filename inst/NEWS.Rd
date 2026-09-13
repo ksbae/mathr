@@ -1,6 +1,47 @@
 \name{NEWS}
 \title{News for Package \pkg{mathr}}
 
+\section{Version 0.1.4 (2026-09-13)}{
+  \itemize{
+    \item{The \code{Chol} and \code{LDLT} examples lost their last line
+          in the rendered help page. A percent sign starts a comment in
+          Rd, so \code{L \%*\% t(L)} was cut back to \code{L}. Both are
+          now escaped and the round trip back to M shows.}
+    \item{Help page titles: \code{invbetai} was titled as the inverse of
+          gammp, \code{NORM} and \code{DENORM} carried their bare names,
+          and seven pairs of pages shared one title (\code{conv} and
+          \code{conv0}, \code{deconv} and \code{deconv0}, \code{gammp} and
+          \code{gammq}, \code{trapez0} and \code{trapez1}, \code{Run.test}
+          and \code{run.p}, \code{Pbinom} and \code{Ppois}, \code{Qnorm}
+          and \code{Qlnorm}). Each title now says what its page is about.}
+    \item{\code{LOG}, \code{EXP} and \code{SQRT} say that current CPUs
+          provide them at the instruction level, so the R versions are
+          there to be read. DESCRIPTION says the same of the package as a
+          whole: it is best studied with its source open.}
+    \item{Help pages brought back in line with the code. \code{erf} and
+          \code{erfc} call \code{gammp} and \code{gammq}, not
+          \code{erfccheb}; \code{gammp} and \code{gammq} call \code{gser}
+          or \code{gcf}; \code{betai} calls \code{betacf} and
+          \code{gammln}; \code{inverfc} goes through the normal quantile;
+          \code{GetP} returns \code{solve(H, g)}; the attribute set by
+          \code{MachEps3} and \code{MachEps4} is "iteration"; the
+          \code{mlr} columns are R-Student, COV-Ratio and DFFITS;
+          \code{NORM} returns c(f, n); \code{NashSVD} takes any real
+          matrix; \code{GAMMA} returns Inf at zero as well as at the
+          negative integers; the \code{runifLC} recurrence adds k.}
+    \item{Distribution parameters are named for what they are: mean and
+          standard deviation for the normal and log-normal, location and
+          scale for t, degrees of freedom for chi-square and F, rate for
+          the gamma density, distribution and quantile functions, scale
+          for \code{Rgamma} and \code{Rgamma0}, mean lambda for Poisson
+          and rate alpha for \code{Rexp}.}
+    \item{Spelling and wording fixed across the help pages, among them
+          Decomposition, Meticulous, Numerical, commutative, array,
+          lengths, chi-square and distribution, together with argument
+          names and function names left over from copied pages.}
+  }
+}
+
 \section{Version 0.1.3 (2026-08-31)}{
   \itemize{
     \item{Every help page now carries a runnable example. Where a base R

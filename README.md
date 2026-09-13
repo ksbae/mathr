@@ -3,7 +3,8 @@
 Scientific computation using R: a collection of undergraduate level
 mathematical routines covering calculus, distribution functions, random
 variate generation, linear algebra, differential equations and
-optimization, sized for one semester.
+optimization, sized for one semester. The package is best studied with
+its source open: every routine is short and written to be read.
 
 `mathr` succeeds the `math` package. Function names and calling
 conventions are unchanged, so existing code runs after swapping the
@@ -12,6 +13,9 @@ conventions are unchanged, so existing code runs after swapping the
 ## Install
 
 ```r
+install.packages("mathr")
+
+# development version
 # install.packages("remotes")
 remotes::install_github("ksbae/mathr")
 ```

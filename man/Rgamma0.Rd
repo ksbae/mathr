@@ -8,7 +8,7 @@ Generate random numbers from a gamma distribution by a simple method
 \arguments{
   \item{n}{count, how many do you want}
   \item{alph}{shape parameter alpha of a gamma distribution, at least 1}
-  \item{bet}{shape parameter beta of a gamma disribution}
+  \item{bet}{scale parameter beta of a gamma distribution}
 }
 \details{
 It uses acceptance-rejection method.

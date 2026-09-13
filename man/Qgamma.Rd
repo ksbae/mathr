@@ -8,7 +8,7 @@ Calculate the x value for the cumulative probability p of a gamma distribution
 \arguments{
   \item{p}{cumulative probability p for a gamma distribution}
   \item{alph}{the shape parameter alpha of a gamma distribution}
-  \item{bet}{the shape parameter beta of a gamma distribution}
+  \item{bet}{the rate parameter beta of a gamma distribution}
 }
 \details{
 It calculates the x value for the cumulative probability p of a gamma distribution.

@@ -2,7 +2,7 @@
 \alias{Dec2Bin}
 \title{Decimal to Binary Format Vector}
 \description{
-Transforms a decimal value to a binary IEEE 754 format value stored in an arry.
+Transforms a decimal value to a binary IEEE 754 format value stored in an array.
 }
 \usage{Dec2Bin(x, Double=TRUE)}
 \arguments{
@@ -10,7 +10,7 @@ Transforms a decimal value to a binary IEEE 754 format value stored in an arry.
   \item{Double}{set this \code{FALSE} if you want single precision.}
 }
 \details{
-  IEEE 754 defined how the computer present float point number in a binary format.
+  IEEE 754 defines how a computer represents a floating point number in binary format.
   This transforms a decimal value to a binary format array.
 }
 \value{

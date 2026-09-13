@@ -1,6 +1,6 @@
 \name{deconv0}
 \alias{deconv0}
-\title{Deconvolution using fft}
+\title{Circular deconvolution using fft}
 \description{
 Deconvolute two given sequences.
 }
@@ -10,7 +10,7 @@ Deconvolute two given sequences.
   \item{x}{Input or Unit response sequence}
 }
 \details{
-The lengthes of two sequences should be same. The order matters.
+The lengths of the two sequences should be the same. The order matters.
 }
 \value{
   Deconvolution result.

@@ -1,8 +1,8 @@
 \name{deconv}
 \alias{deconv}
-\title{Deconvolution using fft}
+\title{Linear deconvolution using fft}
 \description{
-Deconvolute two given sequences, and return real part only.
+Deconvolute two given sequences, and return the real part only.
 }
 \usage{deconv(z, x)}
 \arguments{
@@ -10,7 +10,7 @@ Deconvolute two given sequences, and return real part only.
   \item{x}{Input or Unit response sequence}
 }
 \details{
-The lengthes of two sequences should be same. The order matters.
+The lengths of the two sequences should be the same. The order matters.
 }
 \value{
   Real part of deconvolution result.

@@ -9,11 +9,10 @@ Retained for backward compatibility. Forwards to \code{erfc}.
   \item{z}{a real value}
 }
 \details{
-Retained for backward compatibility. Forwards to \code{erfc}. This is called by \code{erf} and \code{erfc} .
-Retained for backward compatibility. Forwards to erfc, which now uses the incomplete gamma relation over the whole range.
+Retained for backward compatibility. Forwards to \code{erfc}, which now uses the incomplete gamma relation over the whole range.
 }
 \value{
-Approximation value for error function
+complementary error function value, the same as \code{erfc(z)}
 }
 \references{
   Galassi M, et al. GNU Scientific Library Reference Manual. 3rd ed. Network Theory, 2009.

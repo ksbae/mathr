@@ -10,7 +10,7 @@ Continued fraction approximation of incomplete gamma function, Q(a, x)
   \item{x}{to which it integrates}
 }
 \details{
-This calls \code{gammaln}.
+This calls \code{gammln}.
 Ref: Abramowitz and Stegun 6.5.31; Cephes igamc, as redistributed in ALGLIB specialfunctions.cs
 }
 \value{

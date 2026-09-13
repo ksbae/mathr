@@ -1,12 +1,12 @@
 \name{DENORM}
 \alias{DENORM}
-\title{DENORM}
+\title{Denormalize}
 \description{
 From normalized number to decimal number
 }
 \usage{DENORM(Norm)}
 \arguments{
-  \item{Norm}{Normalized number,  a vector of length 2.}
+  \item{Norm}{Normalized number, a vector of length 2.}
 }
 \details{
 Ref. Plauger PJ The Standard C Library. 1992.

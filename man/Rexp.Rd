@@ -2,12 +2,12 @@
 \alias{Rexp}
 \title{Random deviate from exponential distribution}
 \description{
-Generate random numbers from a exponential distribution
+Generate random numbers from an exponential distribution
 }
 \usage{Rexp(n, alpha)}
 \arguments{
   \item{n}{count, how many do you want}
-  \item{alpha}{shape parameter alpha of a exponential distribution}
+  \item{alpha}{rate parameter alpha of an exponential distribution}
 }
 \details{
 It uses inverse-transformation method.

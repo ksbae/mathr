@@ -2,17 +2,17 @@
 \alias{romb}
 \title{Integration using Romberg integration}
 \description{
-Integrates with given fx, a, b, and n
+Integrates with given fx, a, b, and N
 }
 \usage{romb(fx, a, b, N=4)}
 \arguments{
   \item{fx}{real valued scalar function}
   \item{a}{from}
   \item{b}{to}
-  \item{N}{degree; the larger, the precise}
+  \item{N}{degree; the larger, the more precise}
 }
 \details{
-This gives approximate integration value using Romberg integration. Argument N should larger than 2.
+This gives approximate integration value using Romberg integration. Argument N should be larger than 2.
 }
 \value{
   Integration value from a to b with function.

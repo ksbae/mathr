@@ -12,7 +12,7 @@ Integrates with given fx, a, b, and n
   \item{n}{split count}
 }
 \details{
-This gives approximate integration value using Simpson's 1/3 formula. Argument n should be even number.
+This gives approximate integration value using Simpson's 1/3 formula. Argument n should be an even number.
 }
 \value{
   Integration value from a to b with function.

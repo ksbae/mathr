@@ -11,7 +11,7 @@ Retained for backward compatibility. Forwards to \code{gammp} or \code{gammq}
   \item{psig}{1 for P(a, x), 0 for Q(a, x) = 1 - P(a, x)}
 }
 \details{
-This calls \code{gammaln}.
+This calls \code{gammp} or \code{gammq}.
 Retained for backward compatibility. The Cephes series and continued fraction converge over the whole range, so the separate large-a quadrature branch is no longer needed.
 }
 \value{

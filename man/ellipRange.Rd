@@ -1,6 +1,6 @@
 \name{ellipRange}
 \alias{ellipRange}
-\title{EllipRange}
+\title{Ranges of an Ellipse}
 \description{
 Ranges of an ellipse
 }

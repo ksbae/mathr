@@ -1,8 +1,8 @@
 \name{Chol}
 \alias{Chol}
-\title{Cholesky Decomposistion}
+\title{Cholesky Decomposition}
 \description{
-Cholesky decomposistion of a symmetric matrix
+Cholesky decomposition of a symmetric matrix
 }
 \usage{Chol(M)}
 \arguments{
@@ -12,12 +12,12 @@ Cholesky decomposistion of a symmetric matrix
 Input should be a symmetric matrix of real values. This is one-to-one transformation.
 }
 \value{
-  a decomposed matrix
+  the lower triangular matrix L such that M = L L'
 }
 \examples{
 M <- matrix(c(4, 2, 2, 3), 2, 2)
 L <- Chol(M)
 L
-L %*% t(L)                   # back to M
+L \%*\% t(L)                   # back to M
 }
 \author{Kyun-Seop Bae <k@acr.kr>}

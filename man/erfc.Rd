@@ -11,7 +11,7 @@ Complementary error function.
 \details{
 1 - erf(x)
 
-This calls \code{erfccheb}.
+This calls \code{gammq}.
 
 Ref: erfc(x) = Q(1/2, x^2), the relation the GNU Scientific Library uses between gsl_sf_erfc and gsl_sf_gamma_inc_Q
 }

@@ -10,7 +10,7 @@ Get the direction vector for the new line search during the minimization.
   \item{g}{gradient}
 }
 \details{
-The result is same with \code{solve(H, -g)}
+The result is the same as \code{solve(H, g)}.
 }
 \value{
   Direction vector for a new search 

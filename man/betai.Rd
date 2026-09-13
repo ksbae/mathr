@@ -11,7 +11,7 @@ Incomplete beta function with parameter a and b
   \item{x}{to which it integrates}
 }
 \details{
-This calls \code{betaiapprox}, \code{betacf} and/or \code{gammln}.
+This calls \code{betacf} and \code{gammln}.
 Ref: gsl_sf_beta_inc of the GNU Scientific Library, specfunc/beta_inc.c
 }
 \value{

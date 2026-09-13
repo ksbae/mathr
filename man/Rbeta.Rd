@@ -11,7 +11,7 @@ Generate random numbers from a beta distribution
   \item{bet}{shape parameter beta of a beta distribution}
 }
 \details{
-It generates random numbers from random numbers of other ditribution.
+It generates random numbers from random numbers of other distributions.
 }
 \value{
   a vector of random numbers

@@ -9,7 +9,7 @@ Inverse of complementary error function.
   \item{p}{a positive real integration value usually between 0 and 2}
 }
 \details{
-This calls \code{erfc}.
+It goes through the normal quantile, since erfc(x) = 2 Phi(-x sqrt(2)).
 
 Ref: Cephes ndtri, as redistributed in ALGLIB specialfunctions.cs (invnormalcdf)
 }

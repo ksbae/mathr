@@ -2,7 +2,7 @@
 \alias{OuterProd}
 \title{Outer product of two three-dimensional vectors}
 \description{
-Calculate the outer product of two three-dimentional vectors
+Calculate the outer product of two three-dimensional vectors
 }
 \usage{OuterProd(a, b)}
 \arguments{
@@ -10,10 +10,10 @@ Calculate the outer product of two three-dimentional vectors
   \item{b}{the second vector}
 }
 \details{
-Outer product is not communtative.
+Outer product is not commutative.
 }
 \value{
-  Outer product of two three-dimension vectors
+  Outer product of two three-dimensional vectors
 }
 \examples{
 # the vector cross product of two vectors in three dimensions

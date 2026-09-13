@@ -7,7 +7,7 @@ Calculate the cumulative probability for x2 of a chi-square distribution
 \usage{Pchisq(x2, nu)}
 \arguments{
   \item{x2}{chi-square value for a chi-square distribution}
-  \item{nu}{the shape parameter nu of a chi-square distribution}
+  \item{nu}{degrees of freedom nu of a chi-square distribution}
 }
 \details{
 It calculates the cumulative probability for x2 of a chi-square distribution.

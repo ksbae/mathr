@@ -2,7 +2,7 @@
 \alias{Dbinom}
 \title{Density of binomial distribution}
 \description{
-Calculate the mass for n of a binomial distribution
+Calculate the mass for k of a binomial distribution
 }
 \usage{Dbinom(k, n, pe)}
 \arguments{

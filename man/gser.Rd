@@ -10,7 +10,7 @@ Series approximation of incomplete gamma function, P(a, x)
   \item{x}{to which it integrates}
 }
 \details{
-This calls \code{gammaln}.
+This calls \code{gammln}.
 Ref: Abramowitz and Stegun 6.5.29; Cephes igam, as redistributed in ALGLIB specialfunctions.cs
 }
 \value{

@@ -10,7 +10,7 @@ Rounding function in R is \code{round} and its behaviour is different from other
   \item{digits}{integer indicating the number of decimal places. 0 means 10^0=1, 2 means 10^-2=0.01, -1 means 10^1 = 10 etc.}
 }
 \details{
-Ordinary rounding function (round-up). For more details, see wikipedia.
+Ordinary rounding function (round half away from zero). For more details, see Wikipedia.
 }
 \value{
   rounded value

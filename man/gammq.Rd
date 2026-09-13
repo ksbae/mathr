@@ -1,6 +1,6 @@
 \name{gammq}
 \alias{gammq}
-\title{Incomplete gamma function}
+\title{Regularized upper incomplete gamma function Q(a, x)}
 \description{
 Incomplete gamma function, Q(a, x) = 1 - P(a, x)
 }
@@ -10,7 +10,7 @@ Incomplete gamma function, Q(a, x) = 1 - P(a, x)
   \item{x}{to which it integrates}
 }
 \details{
-This calls \code{gser} or \code{gammpapprox}.
+This calls \code{gser} or \code{gcf}.
 Ref: Cephes igam/igamc, as redistributed in ALGLIB specialfunctions.cs
 }
 \value{

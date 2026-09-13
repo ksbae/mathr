@@ -10,13 +10,13 @@
 \arguments{
   \item{n}{count of random numbers to generate}
   \item{Seed}{Seed number. If abs(Seed) is less than 1, Sys.time() is the seed.}
-  \item{a}{number to multiplier}
-  \item{m}{number to mod. It should be a prime number.}
-  \item{k}{number to add}
-  \item{b}{number to discard initially}
+  \item{a}{multiplier}
+  \item{m}{modulus. It should be a prime number.}
+  \item{k}{increment}
+  \item{b}{count of initial values to discard}
 }
 \details{
-R[i] = X[i]/(m + 1). X[i] = (a*X[i - 1] + c) mod m. Then, period is m - 1.
+R[i] = X[i]/(m + 1). X[i] = (a*X[i - 1] + k) mod m. Then, period is m - 1.
 }
 \value{
 Uniform[0, 1) random numbers of n

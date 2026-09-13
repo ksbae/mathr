@@ -2,7 +2,7 @@
 \alias{sft}
 \title{Slow Fourier Transformation}
 \description{
-Fourier trasnformation using the definition, therefore slow.
+Fourier transformation using the definition, therefore slow.
 }
 \usage{sft(y)}
 \arguments{

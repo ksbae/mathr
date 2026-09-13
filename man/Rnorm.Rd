@@ -8,7 +8,7 @@ Generate random numbers from a normal distribution
 \arguments{
   \item{n}{count, how many do you want}
   \item{mu}{mean of normal distribution}
-  \item{sigma}{standard deviation of normal disribution}
+  \item{sigma}{standard deviation of normal distribution}
 }
 \details{
 It is more efficient with even n.

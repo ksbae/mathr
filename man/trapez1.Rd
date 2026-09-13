@@ -1,6 +1,6 @@
 \name{trapez1}
 \alias{trapez1}
-\title{Integration using trapezoidal rule}
+\title{Integration using trapezoidal rule on a function}
 \description{
 Integrates with given fx, a, b, and n
 }

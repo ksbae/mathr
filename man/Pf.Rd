@@ -7,8 +7,8 @@ Calculate the cumulative probability for f of an F distribution
 \usage{Pf(f, nu1, nu2)}
 \arguments{
   \item{f}{f value for an F distribution}
-  \item{nu1}{the shape parameter nu1 of an F distribution}
-  \item{nu2}{the shape parameter nu2 of an F distribution}
+  \item{nu1}{numerator degrees of freedom nu1 of an F distribution}
+  \item{nu2}{denominator degrees of freedom nu2 of an F distribution}
 }
 \details{
 It calculates the cumulative probability for f of an F distribution.

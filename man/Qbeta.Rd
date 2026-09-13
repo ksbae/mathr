@@ -14,7 +14,7 @@ Calculate the x value for the cumulative probability p of a beta distribution
 It calculates the x value for the cumulative probability p of a beta distribution.
 }
 \value{
-  x of \code{Pt(x, alph, bet)}
+  x of \code{Pbeta(x, alph, bet)}
 }
 \examples{
 Qbeta(0.5, 2, 3)

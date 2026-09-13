@@ -6,9 +6,10 @@ Exponential of a real value.
 }
 \usage{EXP(x)}
 \arguments{
-  \item{x}{a real number to be Exponentiated}
+  \item{x}{a real number to be exponentiated}
 }
 \details{
+Current CPUs support this function at the instruction level, so this implementation is for study rather than for speed.
 Ref. Plauger PJ The Standard C Library. 1992.
 }
 \value{

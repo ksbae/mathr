@@ -2,8 +2,8 @@
 \alias{LGAMMA}
 \title{Natural Log Gamma Function}
 \description{
-This log gamma function is for a larger value of real numbers.
-This function uses Lanczos' approximation and fairly short.
+This log gamma function is for larger real values, beyond the range of \code{GAMMA}.
+This function uses Lanczos' approximation and is fairly short.
 }
 \usage{LGAMMA(z)}
 \arguments{

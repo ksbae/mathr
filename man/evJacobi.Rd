@@ -2,7 +2,7 @@
 \alias{evJacobi}
 \title{Spectral Decomposition of a Real Symmetric Matrix by Jacobi Algorithm}
 \description{
-Eigen values and vectors of a Real Symmetic Matrix by Jacobi Algorithm
+Eigen values and vectors of a Real Symmetric Matrix by Jacobi Algorithm
 }
 \usage{evJacobi(A)}
 \arguments{

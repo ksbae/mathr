@@ -1,6 +1,6 @@
 \name{trapez0}
 \alias{trapez0}
-\title{Integration using trapezoidal rule}
+\title{Integration using trapezoidal rule on two sequences}
 \description{
 Integrates with given two sequences: x_i and y_i
 }
@@ -10,7 +10,7 @@ Integrates with given two sequences: x_i and y_i
   \item{y}{sequence of y}
 }
 \details{
-This simplest implementation of trapezoidal rule. The length of two sequences should be same
+This is the simplest implementation of the trapezoidal rule. The lengths of the two sequences should be the same.
 }
 \value{
   Integration value with given sequences.

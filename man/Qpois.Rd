@@ -6,8 +6,8 @@ Calculate the n for the cumulative probability p of a Poisson distribution
 }
 \usage{Qpois(p, lam)}
 \arguments{
-  \item{p}{cumulative proability of a Poisson distribution}
-  \item{lam}{shape parameter lambda of a Poisson distribution}
+  \item{p}{cumulative probability of a Poisson distribution}
+  \item{lam}{mean lambda of a Poisson distribution}
 }
 \details{
 It returns the smallest n with \code{Ppois(n, lam) >= p}, the

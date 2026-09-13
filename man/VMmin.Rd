@@ -2,7 +2,7 @@
 \alias{VMmin}
 \title{Simplified version of optimization function}
 \description{
-To show the algorithm how quasi-Newton type optimization algorithm works. 
+Shows how a quasi-Newton type optimization algorithm works.
 }
 \usage{VMmin(x0, func, MaxIter=9999, Tol=1e-4)}
 \arguments{

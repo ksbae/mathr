@@ -1,6 +1,6 @@
 \name{NORM}
 \alias{NORM}
-\title{NORM}
+\title{Normalize}
 \description{
 From a decimal number to a normalized number
 }
@@ -14,7 +14,7 @@ Returns a vector of length 2.
 Ref. Plauger PJ The Standard C Library. 1992.
 }
 \value{
-  Norm[1] * 2^Norm[2]
+  a vector c(f, n) with x = f * 2^n
 }
 \examples{
 NORM(10)                     # 10 = 0.625 * 2^4
