@@ -8,6 +8,8 @@ its source open: every routine is short and written to be read.
 
 ## Install
 
+CRAN has 0.1.3; this branch is 0.1.4 in development, not yet released.
+
 ```r
 install.packages("mathr")
 
