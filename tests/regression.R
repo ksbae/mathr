@@ -132,6 +132,56 @@ for (s in 1:3) {
 
 
 
+## ---- EXP: the argument reduction has to round -----------------------
+## xexp = x*invln2 was left as a real number, so g = x - xexp*(c1 + c2)
+## never grew past about 1e-13, the |g| < sqrt(eps) branch was taken every
+## time, and the rational approximation under it was dead code. What came
+## back was 2^(x/ln2) and nothing else, up to 223 ulp off at the ends of
+## the range. Rounding xexp puts the reduced argument in |g| <= ln2/2,
+## which is the interval the p and q coefficients were fitted on, and the
+## whole range comes back to about 1.5 ulp.
+maxrel <- function(f, xs) max(abs(vapply(xs, f, 0) - exp(xs))/exp(xs))
+set.seed(3)
+stopifnot(maxrel(EXP, c(seq(-708, 708, by = 0.31),
+                        runif(3000, -708, 708))) < 1e-15)
+stopifnot(identical(EXP(0), 1), tol(EXP(1), exp(1), 1e-15),
+          tol(EXP(-3), exp(-3), 1e-15))
+
+## Small x, and x just off a multiple of ln2, are where that shortcut
+## still bit once the reduction was fixed: it returns exp(g) = 1 and
+## throws away eight digits.
+stopifnot(maxrel(EXP, c(1e-10, 1e-8, 1e-6, -1e-10, -1e-8,
+                        log(2)*(1:20) + 1e-9)) < 1e-15)
+
+## 2^xexp overflows to Inf, and underflows to 0, at exponents where
+## x1 * 2^xexp is still a finite nonzero number.
+stopifnot(maxrel(EXP, c(708.5, 708.9, 709, 709.5, 709.78)) < 1e-15)
+stopifnot(is.finite(EXP(709.78)), EXP(-745) > 0,
+          abs(EXP(-744)/exp(-744) - 1) < 1e-2)   # subnormal, so loose
+
+## The overflow guard sat at 0.9*double.xmax, which is nowhere near where
+## exp overflows, so a large argument reached a reduction that could not
+## reduce it: g grew with x until y = g*g overflowed and the rational form
+## divided Inf by Inf. Anything past about 1e92 came back NaN.
+quiet <- function(v) suppressWarnings(v)
+stopifnot(!is.nan(quiet(EXP(1e100))), !is.nan(EXP(-1e100)))
+stopifnot(quiet(EXP(1e100)) == Inf, quiet(EXP(1e300)) == Inf,
+          EXP(-1e100) == 0, EXP(-1e300) == 0)
+stopifnot(quiet(EXP(710)) == Inf, EXP(-746) == 0)
+
+## The limits are log(double.xmax) going up and -1075*ln2 going down, the
+## latter being where exp falls under half the least subnormal. Each has
+## to land on the exact double, or the guard eats results that are still
+## representable, or lets through arguments the reduction cannot take.
+stopifnot(tol(EXP(709.78271289338397), exp(709.78271289338397), 1e-15),
+          quiet(EXP(709.78271289338409)) == Inf,
+          EXP(-745.13321910194111) > 0,
+          EXP(-745.13321910194122) == 0)
+
+## Overflow is announced, underflow to zero is not, as before.
+stopifnot(inherits(tryCatch(EXP(710), warning = function(w) w), "warning"),
+          !inherits(tryCatch(EXP(-1e100), warning = function(w) w), "warning"))
+
 ## ---- special functions and distributions --------------------------
 ## Everything below rests on the reimplemented incomplete gamma, the
 ## incomplete beta and the error function. base R is the reference.

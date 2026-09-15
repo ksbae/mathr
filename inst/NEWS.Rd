@@ -1,8 +1,34 @@
 \name{NEWS}
 \title{News for Package \pkg{mathr}}
 
-\section{Version 0.1.4 (2026-09-13)}{
+\section{Version 0.1.4 (2026-09-15)}{
   \itemize{
+    \item{\code{EXP} was not running its own algorithm. The range
+          reduction left \code{xexp = x/ln2} unrounded, so the reduced
+          argument \code{g} never grew past about 1e-13, the
+          \code{abs(g) < sqrt(eps)} shortcut was taken on every call, and
+          the rational approximation under it was dead code. What came
+          back was \code{2^(x/ln2)} and nothing else, up to 223 ulp off at
+          the ends of the range. \code{xexp} is now rounded to the nearest
+          integer, which is what puts \code{g} in the interval
+          \code{abs(g) <= ln2/2} the coefficients were fitted on. The
+          shortcut is gone with it: once \code{g} can be nonzero, taking
+          \code{exp(g)} as 1 throws away eight digits, and the rational
+          form is exact at \code{g = 0} anyway. The final scaling is done
+          in two halves, because \code{2^xexp} on its own overflows to Inf,
+          and underflows to 0, at exponents where the result is still a
+          finite nonzero number. Worst relative error over the whole range
+          is now about 1.5 ulp rather than 223.}
+    \item{\code{EXP} returned NaN for any argument past about 1e92. The
+          overflow guard sat at \code{0.9 * .Machine$double.xmax}, which is
+          nowhere near where exp overflows, so such an argument reached a
+          range reduction that could not reduce it: \code{g} grew with x
+          until \code{y = g*g} overflowed and the rational form divided Inf
+          by Inf. The guard is now at \code{log(.Machine$double.xmax)}
+          going up and at \code{-1075*ln2} going down, the latter being
+          where exp falls under half the least subnormal. Overflow still
+          warns and returns Inf, underflow still returns 0 quietly, and
+          both limits now agree with \code{exp} to the last double.}
     \item{The \code{Chol} and \code{LDLT} examples lost their last line
           in the rendered help page. A percent sign starts a comment in
           Rd, so \code{L \%*\% t(L)} was cut back to \code{L}. Both are
