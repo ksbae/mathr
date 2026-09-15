@@ -11,12 +11,20 @@ REM    release.bat cran       build and check --as-cran, then print what
 REM                           is left to do by hand. CRAN submission is a
 REM                           web form, so nothing is uploaded here.
 REM
+REM  Add --no-manual, on either side of the mode, on a box with no LaTeX.
+REM  It skips the reference manual and tells R CMD check not to build the
+REM  PDF version either.
+REM
 REM  The package name and version are read from DESCRIPTION, so there is
 REM  nothing to edit here when the version changes.
 REM ---------------------------------------------------------------------
 
 cd /d "%~dp0"
 set MODE=%1
+set NOMANUAL=
+if /i "%1"=="--no-manual" set NOMANUAL=1
+if /i "%2"=="--no-manual" set NOMANUAL=1
+if /i "%1"=="--no-manual" set MODE=%2
 if "%MODE%"=="" set MODE=build
 
 for /f "tokens=2" %%p in ('findstr /b /c:"Package:" DESCRIPTION') do set PKG=%%p
@@ -60,6 +68,28 @@ if not errorlevel 1 (
 )
 :skipgit
 
+REM --- 0b. the version is written in three places ----------------------
+REM  Version in DESCRIPTION, the NEWS section heading, and the line in
+REM  README that says what is on CRAN and what is here. DESCRIPTION is
+REM  the one the build reads, so the other two are checked against it.
+REM  Bumping one and forgetting the other two is the mistake this
+REM  catches, and it only matters when something is about to leave.
+if /i "%MODE%"=="build" goto :skipversion
+findstr /c:"\section{Version %VER% " inst\NEWS.Rd >nul
+if errorlevel 1 (
+  echo inst\NEWS.Rd has no entry for %VER%.
+  echo Expected a line beginning   \section{Version %VER%
+  exit /b 1
+)
+findstr /c:"%VER%" README.md >nul
+if errorlevel 1 (
+  echo README.md does not mention %VER%.
+  echo Its Install section says which version is on CRAN and which is here.
+  exit /b 1
+)
+echo   %VER% is in DESCRIPTION, inst\NEWS.Rd and README.md
+:skipversion
+
 set STAGE=%TEMP%\%PKG%-release
 if exist "%STAGE%" rd /s /q "%STAGE%"
 mkdir "%STAGE%"
@@ -76,6 +106,8 @@ REM  the old a.bat had this step commented out, which is how the
 REM  previous package shipped a manual several versions stale.
 echo.
 echo [1/6] reference manual
+if defined NOMANUAL echo   skipped, --no-manual
+if defined NOMANUAL goto :manualdone
 if not exist "inst\doc" mkdir "inst\doc"
 if exist "inst\doc\%PKG%-manual.pdf" del "inst\doc\%PKG%-manual.pdf"
 R CMD Rd2pdf --batch --no-preview --internals --force --output="inst\doc\%PKG%-manual.pdf" .
@@ -84,6 +116,7 @@ if not exist "inst\doc\%PKG%-manual.pdf" ( echo Manual was not produced & goto :
 REM  compact it, or R CMD check raises a PDF size NOTE
 Rscript -e "invisible(tools::compactPDF('inst/doc/%PKG%-manual.pdf'))"
 if errorlevel 1 goto :fail
+:manualdone
 
 REM --- 2. source tarball ---------------------------------------------
 echo.
@@ -97,6 +130,7 @@ REM --- 3. check -------------------------------------------------------
 echo.
 set CHECKARGS=
 if /i "%MODE%"=="cran" set CHECKARGS=--as-cran
+if defined NOMANUAL set CHECKARGS=%CHECKARGS% --no-manual
 echo [3/6] R CMD check %CHECKARGS%
 R CMD check %CHECKARGS% "%PKG%_%VER%.tar.gz"
 if errorlevel 1 ( popd & goto :fail )
@@ -176,6 +210,9 @@ echo.
 echo   Tarball ready for submission:
 echo     %~dp0%PKG%_%VER%.tar.gz
 echo.
+if defined NOMANUAL echo   --no-manual: the PDF manual was not built or checked here.
+if defined NOMANUAL echo   CRAN builds one, and so do the platforms below.
+if defined NOMANUAL echo.
 echo   check --as-cran passed here, but CRAN also builds on r-devel and
 echo   on platforms this machine is not. Check there before submitting:
 echo.
