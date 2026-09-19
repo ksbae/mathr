@@ -19,14 +19,16 @@
           and underflows to 0, at exponents where the result is still a
           finite nonzero number. Worst relative error over the whole range
           is now about 1.5 ulp rather than 223.}
-    \item{\code{EXP} returned NaN for any argument past about 1e92. The
-          overflow guard sat at \code{0.9 * .Machine$double.xmax}, which is
-          nowhere near where exp overflows, so such an argument reached a
+    \item{\code{EXP} returned NaN instead of Inf for very large arguments,
+          from about 1e78 upward and for every argument past about 1e82.
+          The overflow guard sat at \code{0.9 * .Machine$double.xmax}, which
+          is nowhere near where exp overflows, so such an argument reached a
           range reduction that could not reduce it: \code{g} grew with x
-          until \code{y = g*g} overflowed and the rational form divided Inf
-          by Inf. The guard is now at \code{log(.Machine$double.xmax)}
-          going up and at \code{-1075*ln2} going down, the latter being
-          where exp falls under half the least subnormal. Overflow still
+          until the numerator of the rational form overflowed, and the
+          denominator with it, leaving Inf minus Inf. The guard is now at
+          \code{log(.Machine$double.xmax)} going up and at
+          \code{-1075*ln2} going down, the latter being where exp falls
+          under half the least subnormal. Overflow still
           warns and returns Inf, underflow still returns 0 quietly, and
           both limits now agree with \code{exp} to the last double.}
     \item{The \code{Chol} and \code{LDLT} examples lost their last line
