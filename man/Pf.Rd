@@ -12,6 +12,8 @@ Calculate the cumulative probability for f of an F distribution
 }
 \details{
 It calculates the cumulative probability for f of an F distribution.
+This function works a value at a time: \code{f}, \code{nu1} and \code{nu2}
+must each be a single number. Use \code{sapply} for a vector.
 }
 \value{
   cumulative probability till f

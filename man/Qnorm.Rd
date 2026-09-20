@@ -12,6 +12,8 @@ Calculate the x value for the cumulative probability p of a normal distribution
 }
 \details{
 It calculates the x value for the cumulative probability p of a normal distribution.
+\code{p} and \code{sig} must each be a single number, not a vector. Use
+\code{sapply} over \code{p} for several values.
 }
 \value{
   x of \code{Pnorm(x, mu, sig)}

@@ -12,6 +12,8 @@ Calculate the density of a F distribution
 }
 \details{
 It calculates the density for f value of an F distribution.
+This function works a value at a time: \code{f}, \code{nu1} and \code{nu2}
+must each be a single number. Use \code{sapply} for a vector.
 }
 \value{
   density for f

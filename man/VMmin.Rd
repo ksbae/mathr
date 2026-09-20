@@ -13,6 +13,7 @@ Shows how a quasi-Newton type optimization algorithm works.
 }
 \details{
 If the changes of between steps are less than the tolerances, it stops.
+\code{MaxIter} must be a single number, not a vector.
 }
 \value{
   \item{par}{final x vector values}

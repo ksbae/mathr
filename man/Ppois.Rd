@@ -11,6 +11,8 @@ Calculate the cumulative probability P(X <= n) of a Poisson distribution
 }
 \details{
 It calculates the cumulative probability for n of a Poisson distribution.
+This function works a value at a time: \code{n} and \code{lam} must each be
+a single number. Use \code{sapply} for a vector.
 }
 \value{
   cumulative probability till n

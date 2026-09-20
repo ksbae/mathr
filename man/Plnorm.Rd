@@ -12,6 +12,8 @@ Calculate the cumulative probability for x of a log-normal distribution
 }
 \details{
 It calculates the cumulative probability for x of a log-normal distribution.
+This function works a value at a time: \code{x}, \code{mu} and \code{sig}
+must each be a single number. Use \code{sapply} for a vector.
 }
 \value{
   cumulative probability till x

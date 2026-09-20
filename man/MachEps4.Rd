@@ -10,6 +10,8 @@ Calculate meticulous negative epsilon using bisectional search.
 }
 \details{
   This finds really the smallest epsilon by bisectional search.
+This function works a value at a time: \code{MaxIter} must be a single
+number. Use \code{sapply} for a vector.
 }
 \value{
   epsilon with "iteration" count attribute

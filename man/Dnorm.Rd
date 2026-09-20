@@ -12,6 +12,7 @@ Calculate the density of a normal distribution
 }
 \details{
 It calculates the density for x value of a normal distribution.
+\code{sig} must be a single number, not a vector.
 }
 \value{
   density for x

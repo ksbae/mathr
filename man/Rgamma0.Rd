@@ -12,6 +12,7 @@ Generate random numbers from a gamma distribution by a simple method
 }
 \details{
 It uses acceptance-rejection method.
+\code{alph} must be a single number, not a vector.
 }
 \value{
   a vector of random numbers

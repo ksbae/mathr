@@ -12,6 +12,8 @@ Inverse of \code{gammp} function
 \details{
 This calls \code{gammln}, \code{gammp}, \code{gammq} and \code{inverfc}.
 Ref: Wilson and Hilferty (1931) starting value refined by bracketed Newton steps, following gsl_cdf_gamma_Pinv of the GNU Scientific Library
+This function works a value at a time: \code{p} and \code{a} must each be a
+single number. Use \code{sapply} for a vector.
 }
 \value{
   inverse of incomplete gamma function

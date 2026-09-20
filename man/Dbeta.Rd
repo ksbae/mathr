@@ -12,6 +12,8 @@ Calculate the density of a beta distribution
 }
 \details{
 It calculates the density for x value of a beta distribution.
+This function works a value at a time: \code{x}, \code{alph} and \code{bet}
+must each be a single number. Use \code{sapply} for a vector.
 }
 \value{
   density for x

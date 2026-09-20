@@ -12,6 +12,8 @@ Retained for backward compatibility. Forwards to \code{betai}
 }
 \details{
 Retained for backward compatibility. The continued fraction of betacf converges over the whole range once the symmetry transform is applied, so the separate large-parameter quadrature branch is no longer needed.
+This function works a value at a time: \code{a}, \code{b} and \code{x} must
+each be a single number. Use \code{sapply} for a vector.
 }
 \value{
   integrated value

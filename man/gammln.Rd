@@ -10,6 +10,8 @@ Log gamma function
 }
 \details{
 Ref: Lanczos g=7 coefficients as used by the GNU Scientific Library, gsl_sf_lngamma
+This function works a value at a time: \code{xx} must be a single number.
+Use \code{sapply} for a vector.
 }
 \value{
   Log gamma

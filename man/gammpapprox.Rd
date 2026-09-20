@@ -13,6 +13,8 @@ Retained for backward compatibility. Forwards to \code{gammp} or \code{gammq}
 \details{
 This calls \code{gammp} or \code{gammq}.
 Retained for backward compatibility. The Cephes series and continued fraction converge over the whole range, so the separate large-a quadrature branch is no longer needed.
+This function works a value at a time: \code{a}, \code{x} and \code{psig}
+must each be a single number. Use \code{sapply} for a vector.
 }
 \value{
   integrated value

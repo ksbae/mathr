@@ -13,6 +13,8 @@ Calculate the cumulative probability for t of a t distribution
 }
 \details{
 It calculates the cumulative probability for t of a t distribution.
+This function works a value at a time: \code{t}, \code{nu}, \code{mu} and
+\code{sig} must each be a single number. Use \code{sapply} for a vector.
 }
 \value{
   cumulative probability till t

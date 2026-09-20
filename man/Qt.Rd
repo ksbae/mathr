@@ -13,6 +13,8 @@ Calculate the t value for the cumulative probability p of a t distribution
 }
 \details{
 It calculates the t value for the cumulative probability p of a t distribution.
+\code{p} and \code{nu} must each be a single number, not a vector. Use
+\code{sapply} over \code{p} for several values.
 }
 \value{
   t of \code{Pt(t, nu, mu, sig)}

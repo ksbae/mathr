@@ -11,6 +11,8 @@ This function uses Lanczos' approximation and is fairly short.
 }
 \details{
 If abs(z) is less than or equal to 171, it uses GAMMA function.
+This function works a value at a time: \code{z} must be a single number.
+Use \code{sapply} for a vector.
 }
 \value{
 natural log value of Gamma function

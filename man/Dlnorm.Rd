@@ -12,6 +12,8 @@ Calculate the density of a log-normal distribution
 }
 \details{
 It calculates the density for x value of a log-normal distribution.
+\code{x} and \code{sig} must each be a single number, not a vector. Use
+\code{sapply} over \code{x} for several values.
 }
 \value{
   density for x

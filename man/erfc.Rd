@@ -14,6 +14,8 @@ Complementary error function.
 This calls \code{gammq}.
 
 Ref: erfc(x) = Q(1/2, x^2), the relation the GNU Scientific Library uses between gsl_sf_erfc and gsl_sf_gamma_inc_Q
+This function works a value at a time: \code{x} must be a single number.
+Use \code{sapply} for a vector.
 }
 \value{
 \eqn{ 1 -  \frac{2}{\sqrt{\pi}} \int_{0}^{x} e^{-t^2} dt }

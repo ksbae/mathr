@@ -10,6 +10,8 @@ It approximates pnorm using a polynomial equation.
 }
 \details{
 It calculates the approximation of \code{pnorm(x)}.
+This function works a value at a time: \code{x} must be a single number.
+Use \code{sapply} for a vector.
 }
 \value{
   Probability of Z < x

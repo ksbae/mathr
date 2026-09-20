@@ -12,6 +12,8 @@ Natural or common log of a real positive value.
 \details{
 Current CPUs support this function at the instruction level, so this implementation is for study rather than for speed.
 Ref. Plauger PJ The Standard C Library. 1992.
+This function works a value at a time: \code{x} and \code{DecFlag} must
+each be a single number. Use \code{sapply} for a vector.
 }
 \value{
   log value of base \emph{e} or 10.

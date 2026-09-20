@@ -17,7 +17,12 @@
           \code{EXP}, \code{LOG}, \code{SQRT} and the distribution
           functions among them. Arguments that do accept a vector and
           return the right answer for one, such as \code{mu} in
-          \code{Qnorm} or \code{x} in \code{Dnorm}, are untouched.}
+          \code{Qnorm} or \code{x} in \code{Dnorm}, are untouched. Each
+          of the 64 help pages now names the arguments its own function
+          constrains, so the ones that are scalar throughout and the
+          ones that merely have a scalar control argument, such as
+          \code{standardize} in \code{mlr}, can be told apart without
+          reading the source.}
     \item{\code{EXP} was not running its own algorithm. The range
           reduction left \code{xexp = x/ln2} unrounded, so the reduced
           argument \code{g} never grew past about 1e-13, the

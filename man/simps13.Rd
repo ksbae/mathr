@@ -13,6 +13,7 @@ Integrates with given fx, a, b, and n
 }
 \details{
 This gives approximate integration value using Simpson's 1/3 formula. Argument n should be an even number.
+\code{n} must be a single number, not a vector.
 }
 \value{
   Integration value from a to b with function.

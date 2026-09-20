@@ -12,6 +12,8 @@ Cumulative probability of the run count for the run test
 }
 \details{
 It calculates P(Run count <= r | m, n), the cumulative probability of the run count that \code{Run.test} turns into a p-value.
+This function works a value at a time: \code{m}, \code{n} and \code{r} must
+each be a single number. Use \code{sapply} for a vector.
 }
 \value{
 probability of run count to be less than or equal to r with m and n. 

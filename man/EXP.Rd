@@ -10,8 +10,9 @@ Exponential of a real value.
 }
 \details{
 Current CPUs support this function at the instruction level, so this implementation is for study rather than for speed.
-This function takes one value at a time, as the others here do. Use \code{sapply(x, EXP)} for a vector.
 Ref. Plauger PJ The Standard C Library. 1992.
+This function works a value at a time: \code{x} must be a single number.
+Use \code{sapply} for a vector.
 }
 \value{
   Exponential value of a real value.

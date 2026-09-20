@@ -13,6 +13,8 @@ Inverse of incomplete beta function with parameter a and b
 \details{
 This calls \code{gammln} and \code{betai}.
 Ref: bracketed Newton steps on betai, following gsl_cdf_beta_Pinv of the GNU Scientific Library
+This function works a value at a time: \code{p}, \code{a} and \code{b} must
+each be a single number. Use \code{sapply} for a vector.
 }
 \value{
   inverse of incomplete beta function

@@ -10,6 +10,8 @@ Retained for backward compatibility. Forwards to \code{erfc}.
 }
 \details{
 Retained for backward compatibility. Forwards to \code{erfc}, which now uses the incomplete gamma relation over the whole range.
+This function works a value at a time: \code{z} must be a single number.
+Use \code{sapply} for a vector.
 }
 \value{
 complementary error function value, the same as \code{erfc(z)}

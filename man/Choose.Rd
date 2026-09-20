@@ -11,6 +11,8 @@ Another simple implementation of combination function like \code{choose}
 }
 \details{
 This is a simple version of the combination function that does not overflow easily.
+This function works a value at a time: \code{n} and \code{r} must each be a
+single number. Use \code{sapply} for a vector.
 }
 \value{
   combination of choosing r cases from n cases.

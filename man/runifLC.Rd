@@ -17,6 +17,8 @@
 }
 \details{
 R[i] = X[i]/(m + 1). X[i] = (a*X[i - 1] + k) mod m. Then, period is m - 1.
+\code{n}, \code{Seed}, \code{a} and \code{b} must each be a single number,
+not a vector. Use \code{sapply} over \code{n} for several values.
 }
 \value{
 Uniform[0, 1) random numbers of n

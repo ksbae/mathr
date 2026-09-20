@@ -11,6 +11,8 @@ Calculate the cumulative probability for x2 of a chi-square distribution
 }
 \details{
 It calculates the cumulative probability for x2 of a chi-square distribution.
+This function works a value at a time: \code{x2} and \code{nu} must each be
+a single number. Use \code{sapply} for a vector.
 }
 \value{
   cumulative probability till x2

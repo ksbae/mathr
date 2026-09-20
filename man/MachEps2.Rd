@@ -11,6 +11,8 @@ Calculate epsilon using x and Start value.
 }
 \details{
   This finds the smallest epsilon which satisfies x + eps > x by halving epsilon for each iteration.
+This function works a value at a time: \code{x} and \code{Start} must each
+be a single number. Use \code{sapply} for a vector.
 }
 \value{
   epsilon

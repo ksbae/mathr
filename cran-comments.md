@@ -37,8 +37,9 @@ function nor the cause. Every argument that drives such an `if` is now
 checked on entry by one internal helper, and the error names the
 function and the argument: 130 argument positions across 64 functions.
 Arguments that do accept a vector and return the right answer for one
-are untouched, and the tests assert that they still do. All of the above
-is covered by new assertions in `tests/regression.R`.
+are untouched, and the tests assert that they still do. Each of the 64
+help pages names the arguments its own function constrains. All of the
+above is covered by new assertions in `tests/regression.R`.
 
 The release also carries the documentation work: help page titles that
 were wrong or duplicated are corrected, two examples that lost their last

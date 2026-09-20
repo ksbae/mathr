@@ -13,6 +13,7 @@ Calculate the density of a t distribution
 }
 \details{
 It calculates the density for t value of a t distribution.
+\code{nu} and \code{sig} must each be a single number, not a vector.
 }
 \value{
   density for t

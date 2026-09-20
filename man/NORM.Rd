@@ -12,6 +12,8 @@ From a decimal number to a normalized number
 It returns (f,n) for x = f * 2 ^ n where (0.5 <= f <= 1).
 Returns a vector of length 2. 
 Ref. Plauger PJ The Standard C Library. 1992.
+This function works a value at a time: \code{x} must be a single number.
+Use \code{sapply} for a vector.
 }
 \value{
   a vector c(f, n) with x = f * 2^n

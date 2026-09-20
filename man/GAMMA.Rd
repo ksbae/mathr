@@ -11,6 +11,8 @@ This function uses Lanczos' approximation and is fairly short.
 }
 \details{
   If z is a positive integer, GAMMA(z) = (z - 1)!. If z is zero or a negative integer, it returns +Inf.
+This function works a value at a time: \code{z} must be a single number.
+Use \code{sapply} for a vector.
 }
 \value{
   Gamma function real value

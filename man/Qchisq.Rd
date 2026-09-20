@@ -11,6 +11,8 @@ Calculate the chi-square value for the cumulative probability p of a chi-square 
 }
 \details{
 It calculates the chi-square value for the cumulative probability p of a chi-square distribution.
+This function works a value at a time: \code{p} and \code{nu} must each be
+a single number. Use \code{sapply} for a vector.
 }
 \value{
   x2 of \code{Pchisq(x2, nu)}

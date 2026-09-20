@@ -10,6 +10,8 @@ This function returns factorial value from the stored table.
 }
 \details{
 This function returns factorial value from the table known to be precise.
+This function works a value at a time: \code{n} must be a single number.
+Use \code{sapply} for a vector.
 }
 \value{
   factorial value
