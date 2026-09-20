@@ -1,7 +1,7 @@
 \name{NEWS}
 \title{News for Package \pkg{mathr}}
 
-\section{Version 0.1.4 (2026-09-15)}{
+\section{Version 0.1.4 (2026-09-20)}{
   \itemize{
     \item{\code{EXP} was not running its own algorithm. The range
           reduction left \code{xexp = x/ln2} unrounded, so the reduced
