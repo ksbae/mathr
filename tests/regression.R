@@ -1,4 +1,5 @@
-## Regression tests for bugs fixed in 0.1.7.
+## Regression tests for bugs this package has fixed, the oldest of them
+## before the first release.
 ## Plain stopifnot() so that no new package dependency is introduced.
 
 library(mathr)
@@ -6,9 +7,9 @@ library(mathr)
 tol <- function(a, b, eps = 1e-8) isTRUE(all.equal(a, b, tolerance = eps))
 
 ## ---- LGAMMA: reflection formula for z < 0.5 -------------------------
-## Before 0.1.7 the recursive term was added instead of subtracted and
-## the leading term had no abs(), so every z < 0.5 was wrong and any z
-## with sin(pi*z) < 0 returned NaN.
+## Before the first release the recursive term was added instead of
+## subtracted and the leading term had no abs(), so every z < 0.5 was
+## wrong and any z with sin(pi*z) < 0 returned NaN.
 zs <- c(-3.7, -2.5, -1.5, -0.5, -0.1, 0.01, 0.25, 0.4, 0.49)
 for (z in zs) stopifnot(tol(LGAMMA(z), lgamma(z), 1e-7))
 
@@ -27,8 +28,8 @@ for (z in c(-1.5, -0.5, 0.25, 0.4, 2.5)) {
 }
 
 ## ---- Grad: scalar argument -----------------------------------------
-## Before 0.1.7, 2:n gave c(2, 1) when n == 1, so a reducing objective
-## returned NA.
+## Before the first release, 2:n gave c(2, 1) when n == 1, so a reducing
+## objective returned NA.
 f_elem <- function(x) x^2          # element-wise
 f_red  <- function(x) sum(x^2)     # reduces to a scalar
 stopifnot(tol(Grad(f_elem, 3), 6, 1e-6))
@@ -47,7 +48,8 @@ stopifnot(tol(Deriv0(h, 0.7), Deriv1(h, 0.7), 1e-8))
 stopifnot(tol(Deriv1(h, 0.7), Deriv2(h, 0.7), 1e-8))
 
 ## ---- mlr: standardize by column ------------------------------------
-## Before 0.1.7 the grand mean was used, which errored for p > 1.
+## Before the first release the grand mean was used, which errored for
+## p > 1.
 set.seed(1)
 n  <- 30
 X  <- data.frame(a = rnorm(n, 10, 2), b = rnorm(n, -5, 3))
