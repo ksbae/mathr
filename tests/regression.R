@@ -161,8 +161,9 @@ stopifnot(is.finite(EXP(709.78)), EXP(-745) > 0,
 
 ## The overflow guard sat at 0.9*double.xmax, which is nowhere near where
 ## exp overflows, so a large argument reached a reduction that could not
-## reduce it: g grew with x until y = g*g overflowed and the rational form
-## divided Inf by Inf. Anything past about 1e92 came back NaN.
+## reduce it: g grew with x until the numerator of the rational form
+## overflowed, and the denominator with it, leaving Inf minus Inf. NaN
+## first appeared around 1e78 and was total from about 1e82.
 quiet <- function(v) suppressWarnings(v)
 stopifnot(!is.nan(quiet(EXP(1e100))), !is.nan(EXP(-1e100)))
 stopifnot(quiet(EXP(1e100)) == Inf, quiet(EXP(1e300)) == Inf,
@@ -181,6 +182,39 @@ stopifnot(tol(EXP(709.78271289338397), exp(709.78271289338397), 1e-15),
 ## Overflow is announced, underflow to zero is not, as before.
 stopifnot(inherits(tryCatch(EXP(710), warning = function(w) w), "warning"),
           !inherits(tryCatch(EXP(-1e100), warning = function(w) w), "warning"))
+
+## exp(-Inf) is 0. The -Inf branch had been the +Inf one with the sign
+## flipped, so it handed the argument straight back.
+stopifnot(identical(quiet(EXP(-Inf)), exp(-Inf)),
+          identical(quiet(EXP(+Inf)), exp(+Inf)),
+          is.nan(quiet(EXP(NaN))))
+stopifnot(quiet(EXP(-Inf)) == 0)
+
+## A vector reached is.nan() and died on the length of an if condition,
+## with a message that named neither EXP nor the reason. EXP takes one
+## value at a time, like the rest of the package, and now says so.
+emsg <- function(e) tryCatch(e, error = conditionMessage)
+stopifnot(grepl("one value at a time", emsg(EXP(c(1, 2, 3)))),
+          grepl("one value at a time", emsg(EXP(numeric(0)))),
+          grepl("one value at a time", emsg(EXP(c(-Inf, 0)))))
+stopifnot(maxrel(EXP, c(1, 2, 3)) < 1e-15)   # sapply/vapply is the way
+
+## The same guard is on every argument in the package that drives an if,
+## so none of them reaches R's message any more. .Scalar1 names the
+## function and the offending argument.
+stopifnot(grepl("one value at a time", emsg(LOG(c(1, 2)))),
+          grepl("one value at a time", emsg(SQRT(c(1, 2)))),
+          grepl("one value at a time", emsg(GAMMA(c(1, 2)))),
+          grepl("one value at a time", emsg(betai(c(1, 2), 2, 0.5))),
+          grepl("sig", emsg(Pnorm(1, 0, c(1, 2)))),      # a later argument
+          grepl("nu",  emsg(Dt(1, c(1, 2)))))            # ditto
+
+## Arguments that do take a vector, and give the right answer for one,
+## are deliberately left unguarded. Guarding them would be a regression.
+stopifnot(tol(Qnorm(0.5, c(0, 1), 1), qnorm(0.5, c(0, 1), 1)),
+          tol(Dnorm(c(0, 1)), dnorm(c(0, 1))),
+          tol(Dlnorm(1, c(0, 1), 1), dlnorm(1, c(0, 1), 1)),
+          tol(Round(c(1.4, 2.6)), c(1, 3)))
 
 ## ---- special functions and distributions --------------------------
 ## Everything below rests on the reimplemented incomplete gamma, the

@@ -5,6 +5,8 @@
 
 mlr <- function(y, x.raw, standardize=0, Plot=FALSE)
 {
+  .Scalar1("mlr", standardize)
+
   x.mat <- as.matrix(x.raw)
   if (length(y) != nrow(x.mat)) {
     message("Numbers of rows of x matrix and y vector are different.")

@@ -4,6 +4,8 @@
 # otherwise), as redistributed in ALGLIB specialfunctions.cs.
 gammp = function(a, x)
 {
+  .Scalar1("gammp", a, x)
+
   if (x < 0.0 | a <= 0.0) {
     warning("bad args in gammp")
     return(NULL)

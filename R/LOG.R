@@ -1,5 +1,7 @@
 LOG = function(x, DecFlag=FALSE)
 {
+  .Scalar1("LOG", x, DecFlag)
+
   if (is.nan(x)) {
     warning ("Input is NaN.") 
     return (NaN)

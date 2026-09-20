@@ -1,5 +1,7 @@
 NORM = function(x)
 {
+  .Scalar1("NORM", x)
+
   if (x == 0) return(c(0,0))
   n = 0
   if (x > 0.5) {

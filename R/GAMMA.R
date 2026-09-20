@@ -1,5 +1,7 @@
 GAMMA = function(z)
 {
+  .Scalar1("GAMMA", z)
+
   if (is.nan(z)) return (NaN)
   if (z == -Inf) return (NaN)
   if (z > 171.61) return(+Inf) # including z == +Inf case

@@ -1,5 +1,7 @@
 Qpois = function(p, lam)
 {
+  .Scalar1("Qpois", p, lam)
+
   if (lam <= 0.) {
     warning("bad lam in Poisson distribution")
     return(NULL)

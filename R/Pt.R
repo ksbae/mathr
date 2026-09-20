@@ -1,5 +1,7 @@
 Pt = function(t, nu, mu=0, sig=1)
 {
+  .Scalar1("Pt", t, nu, mu, sig)
+
   if (sig <= 0. | nu <= 0.) {
     warning("bad sig,nu for a t distribution")
     return(NULL)

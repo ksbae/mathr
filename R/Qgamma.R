@@ -1,5 +1,7 @@
 Qgamma = function(p, alph, bet=1)
 {
+  .Scalar1("Qgamma", p, alph, bet)
+
   if (alph <= 0. | bet <= 0.) {
     warning("bad alph, bet for a gamma distribution")
     return(NULL)

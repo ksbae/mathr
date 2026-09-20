@@ -9,6 +9,8 @@
 # lost its significant digits.
 erfc = function(x)
 {
+  .Scalar1("erfc", x)
+
   if (is.nan(x)) return (NaN)
   if (x == 0)    return (1)
   if (x < 0)     return (2 - erfc(-x))

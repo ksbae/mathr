@@ -1,5 +1,7 @@
 Qbinom = function(p, n, pe)
 {
+  .Scalar1("Qbinom", p, n, pe)
+
   if (n <= 0 | pe <= 0. | pe >= 1.) {
     warning("bad args in binomial distribution")
     return(NULL)

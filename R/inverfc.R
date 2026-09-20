@@ -8,6 +8,8 @@
 # sqrt(-2 log p) for the tails.
 inverfc = function(p)
 {
+  .Scalar1("inverfc", p)
+
     if (p >= 2.0) return (-100.)
     if (p <= 0.0) return (100.)
 

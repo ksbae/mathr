@@ -7,5 +7,7 @@
 # is no longer needed and this function forwards to betai().
 betaiapprox = function(a, b, x)
 {
+  .Scalar1("betaiapprox", a, b, x)
+
   return (betai(a, b, x))
 }

@@ -1,5 +1,7 @@
 MachEps4 = function(MaxIter=1000)
 {
+  .Scalar1("MachEps4", MaxIter)
+
   lb = -1 # upper bound
   ub = 0 # lower bound
   NextEps = (lb + ub)/2

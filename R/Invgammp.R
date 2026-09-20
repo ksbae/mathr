@@ -10,6 +10,8 @@
 # no fitted constants of its own.
 invgammp = function(p, a)
 {
+  .Scalar1("invgammp", p, a)
+
     if (a <= 0.) {
       warning("a must be pos in invgammap")
       return(NULL)

@@ -1,5 +1,7 @@
 run.p = function(m, n, r)
 {
+  .Scalar1("run.p", m, n, r)
+
 # INPUT
 # m : count of fewer species (minimum value = 0)
 # n : count of more frequent species (minimum value = 1)

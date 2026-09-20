@@ -3,6 +3,8 @@
 # Cephes criterion, as redistributed in ALGLIB specialfunctions.cs.
 gammq = function(a, x)
 {
+  .Scalar1("gammq", a, x)
+
   if (x < 0.0 | a <= 0.0) {
     warning("bad args in gammq")
     return(NULL)

@@ -8,6 +8,8 @@
 # fitted constants of its own.
 invbetai = function(p, a, b)
 {
+  .Scalar1("invbetai", p, a, b)
+
   if (a <= 0. | b <= 0.) {
     warning("Bad a or b in routine invbetai")
     return(NULL)

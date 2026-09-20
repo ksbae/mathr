@@ -1,5 +1,7 @@
 Qnorm = function(p, mu=0, sig=1)
 {
+  .Scalar1("Qnorm", p, sig)
+
   if (sig <= 0.) {
     warning("bad sig for a normal distribution")
     return(NULL)

@@ -5,6 +5,8 @@
 # approximation over the whole range, so this function forwards to it.
 erfccheb = function(z)
 {
+  .Scalar1("erfccheb", z)
+
     if (z < 0.) {
       warning("erfccheb requires nonnegative argument")
       return(NULL)

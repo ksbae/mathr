@@ -6,6 +6,8 @@
 # Scientific Library (specfunc/beta_inc.c).
 betai = function(a, b, x)
 {
+  .Scalar1("betai", a, b, x)
+
     if (a <= 0.0 | b <= 0.0) {
       warning("Bad a or b in routine betai")
       return(NULL)

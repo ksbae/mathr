@@ -1,5 +1,7 @@
 Qchisq = function(p, nu)
 {
+  .Scalar1("Qchisq", p, nu)
+
   if (nu <= 0.) {
     warning("bad nu for a Chi-square distribution")
     return(NULL)

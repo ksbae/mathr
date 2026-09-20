@@ -9,6 +9,8 @@
 #   psig = 1 -> P(a, x),  psig = 0 -> Q(a, x)
 gammpapprox = function(a, x, psig = 1)
 {
+  .Scalar1("gammpapprox", a, x, psig)
+
   if (psig == 1) return (gammp(a, x))
   return (gammq(a, x))
 }

@@ -1,5 +1,7 @@
 simps38 = function(fx, a, b, n)
 {
+  .Scalar1("simps38", n)
+
    if (n %% 3 != 0) return(NULL)
    
    xk = seq(a, b, length.out=(n+1))

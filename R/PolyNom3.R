@@ -1,5 +1,7 @@
 PolyNom3 = function(x)
 {
+  .Scalar1("PolyNom3", x)
+
   CO1  = 0.4361836
   CO2  =-0.1201676
   CO3  = 0.9372980

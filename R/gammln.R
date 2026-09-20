@@ -4,6 +4,8 @@
 # (gsl_sf_lngamma, lanczos_7_c).
 gammln = function(xx)
 {
+  .Scalar1("gammln", xx)
+
   if (xx <= 0) {
     warning("bad arg in gammln")
     return(NaN)

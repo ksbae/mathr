@@ -3,6 +3,8 @@
 
 Rgamma0 = function(n, alph, bet)
 {
+  .Scalar1("Rgamma0", alph)
+
   # The rejection condition below is vacuous for alph < 1: it accepts
   # every draw, which returns a scaled Exp(1) rather than a gamma. Use
   # Rgamma, which handles the whole range.

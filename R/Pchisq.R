@@ -1,5 +1,7 @@
 Pchisq = function(x2, nu)
 {
+  .Scalar1("Pchisq", x2, nu)
+
   if (nu <= 0.) {
     warning("bad nu for a Chi-square distribution")
     return(NULL)

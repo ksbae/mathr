@@ -1,5 +1,7 @@
 Dec2Bin = function(x, Double=TRUE)
 {
+  .Scalar1("Dec2Bin", x, Double)
+
 # Input
 #   x: a real number
 # return: an array of 0 or 1s with length of 32 (for float) or 64 (for double)

@@ -1,5 +1,7 @@
 tableFactorial = function(n)
 {
+  .Scalar1("tableFactorial", n)
+
   if (is.nan(n)) return(NaN)
   if (floor(n) != n) return(NaN) # not an integer
   if (n < 0) return(NaN)    # or n == -Inf

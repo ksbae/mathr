@@ -1,5 +1,7 @@
 EXP = function(x)
 {
+  .Scalar1("EXP", x)
+
   if (is.nan(x)) {
     warning ("Input is NaN.") 
     return (NaN)
@@ -8,7 +10,7 @@ EXP = function(x)
     return (+Inf)
   } else if (x == -Inf) {
     warning ("Input is -Inf.") 
-    return (-Inf)
+    return (0)
   } else if (x == 0) {
     return (1.0)
   }

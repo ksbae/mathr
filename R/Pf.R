@@ -1,5 +1,7 @@
 Pf = function(f, nu1, nu2)
 {
+  .Scalar1("Pf", f, nu1, nu2)
+
   if (nu1 <= 0. | nu2 <= 0.) {
     warning("bad nu1, nu2 for an F distribution")
     return(NULL)

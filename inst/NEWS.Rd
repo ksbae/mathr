@@ -3,6 +3,21 @@
 
 \section{Version 0.1.4 (2026-09-15)}{
   \itemize{
+    \item{\code{EXP(-Inf)} returned \code{-Inf}. The branch for it had
+          been the \code{+Inf} branch with the sign flipped, so it handed
+          the argument back instead of the limit. It returns 0, which is
+          what \code{exp} does.}
+    \item{Given a vector, the functions here that work a value at a time
+          failed with "the condition has length > 1", the message R
+          raises for an \code{if} whose condition is not a single value.
+          It names neither the function nor the reason. Every argument
+          that drives such an \code{if} is now checked up front, and the
+          error names the function and the argument and points at
+          \code{sapply}: 130 argument positions across 64 functions,
+          \code{EXP}, \code{LOG}, \code{SQRT} and the distribution
+          functions among them. Arguments that do accept a vector and
+          return the right answer for one, such as \code{mu} in
+          \code{Qnorm} or \code{x} in \code{Dnorm}, are untouched.}
     \item{\code{EXP} was not running its own algorithm. The range
           reduction left \code{xexp = x/ln2} unrounded, so the reduced
           argument \code{g} never grew past about 1e-13, the

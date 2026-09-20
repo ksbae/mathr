@@ -3,6 +3,8 @@
 
 VMmin = function(x0, func, MaxIter=9999, Tol=1e-4)
 {
+  .Scalar1("VMmin", MaxIter)
+
   StopFlag = 0;
   if (MaxIter <= 0) StopFlag = StopFlag + 32;
   Fmin = func(x0);

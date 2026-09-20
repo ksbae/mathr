@@ -1,5 +1,7 @@
 LGAMMA = function(z)
 {
+  .Scalar1("LGAMMA", z)
+
   if (is.nan(z)) return(NaN)
   if (z == -Inf) return(NaN)
   if (z > 2.5327372760800758e+305) return(+Inf)  # including z == +Inf case

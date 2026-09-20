@@ -1,5 +1,7 @@
 Ppois = function(n, lam)
 {
+  .Scalar1("Ppois", n, lam)
+
   if (n < 0) {
     warning("bad n in Poisson distribution")
     return(NULL)

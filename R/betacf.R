@@ -8,6 +8,8 @@
 # the GNU Scientific Library (specfunc/beta_inc.c).
 betacf = function(a, b, x)
 {
+  .Scalar1("betacf", a, b, x)
+
   MAXITER = 512
   CUTOFF  = 2.0 * .Machine$double.xmin
   EPS     = 2.0 * .Machine$double.eps

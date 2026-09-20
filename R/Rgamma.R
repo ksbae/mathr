@@ -3,6 +3,8 @@
 
 Rgamma = function(n, alph, bet)
 {
+  .Scalar1("Rgamma", alph)
+
   stopifnot(alph > 0, bet > 0)
   exp1 = exp(1)
   Res = vector(length=n)

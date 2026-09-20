@@ -5,6 +5,8 @@
 # ALGLIB (specialfunctions.cs, incompletegammac).
 gcf = function(a, x)
 {
+  .Scalar1("gcf", a, x)
+
   EPS    = 1e-15
   BIG    = 4503599627370496.0          # 2^52
   BIGINV = 2.22044604925031308085e-16  # 1/2^52

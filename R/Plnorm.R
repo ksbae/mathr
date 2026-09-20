@@ -1,5 +1,7 @@
 Plnorm = function(x, mu=0, sig=1)
 {
+  .Scalar1("Plnorm", x, mu, sig)
+
   if (sig <= 0.) {
     warning("bad sigma for a log-normal distribution")
     return(NULL)

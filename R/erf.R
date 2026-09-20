@@ -8,6 +8,8 @@
 # and the accuracy of the two functions cannot drift apart.
 erf = function(x)
 {
+  .Scalar1("erf", x)
+
   if (is.nan(x)) return (NaN)
   if (x == 0)    return (0)
   if (x < 0)     return (-erf(-x))

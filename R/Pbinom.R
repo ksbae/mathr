@@ -1,5 +1,7 @@
 Pbinom = function(k, n, pe)
 {
+  .Scalar1("Pbinom", k, n, pe)
+
   if (n <= 0 | pe <= 0. | pe >= 1.) {
     warning("bad args in binomial distribution")
     return(NULL)

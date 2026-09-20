@@ -1,5 +1,7 @@
 Qt = function(p, nu, mu=0, sig=1)
 {
+  .Scalar1("Qt", p, nu)
+
   if (p <= 0. | p >= 1.) {
     warning("bad p for a t distribution")
     return(NULL)

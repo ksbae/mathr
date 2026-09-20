@@ -1,5 +1,7 @@
 SQRT = function(x)
 {
+  .Scalar1("SQRT", x)
+
   if (x < 0) {
     warning("NaN produced")
     return (NaN)

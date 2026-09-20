@@ -1,5 +1,7 @@
 Qlnorm = function(p, mu=0, sig=1)
 {
+  .Scalar1("Qlnorm", p, sig)
+
   if (sig <= 0.) {
     warning("bad sigma for a log-normal distribution")
     return(NULL)

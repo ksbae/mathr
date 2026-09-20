@@ -4,6 +4,8 @@
 # redistributed in ALGLIB (specialfunctions.cs, incompletegamma).
 gser = function(a, x)
 {
+  .Scalar1("gser", a, x)
+
   EPS = 1e-15
   if (x <= 0 | a <= 0) return(0)
 
