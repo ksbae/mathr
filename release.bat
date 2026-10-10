@@ -20,6 +20,15 @@ REM  nothing to edit here when the version changes.
 REM ---------------------------------------------------------------------
 
 cd /d "%~dp0"
+
+REM  TEMP can arrive as the 8.3 short path (C:\Users\KYUN-S~1\...). LaTeX
+REM  reads the "~" as an active character, so the manual R CMD check
+REM  builds under it never typesets, the step still reports OK, and
+REM  MiKTeX's crash report turns up as a detritus NOTE. Use the long form.
+if defined LOCALAPPDATA set "TEMP=%LOCALAPPDATA%\Temp"
+set "TMP=%TEMP%"
+set "TMPDIR=%TEMP%"
+
 set MODE=%1
 set NOMANUAL=
 if /i "%1"=="--no-manual" set NOMANUAL=1
@@ -168,6 +177,16 @@ if errorlevel 1 (
   echo   Status: OK
 )
 :checkdone
+REM  check calls the PDF manual OK whenever Rd2pdf exits 0, and on Windows
+REM  tools::texi2dvi does not look at texify's exit status, so a LaTeX
+REM  failure can still pass. Look for the file itself.
+if not defined NOMANUAL if not exist "%PKG%.Rcheck\%PKG%-manual.pdf" (
+  echo.
+  echo R CMD check did not produce the PDF manual.
+  echo See "%STAGE%\%PKG%.Rcheck\Rdlatex.log"
+  popd
+  goto :fail
+)
 
 REM --- 4. windows binary ----------------------------------------------
 echo.
@@ -216,8 +235,12 @@ if defined NOMANUAL echo.
 echo   check --as-cran passed here, but CRAN also builds on r-devel and
 echo   on platforms this machine is not. Check there before submitting:
 echo.
-echo     Rscript -e "devtools::check_win_devel()"
-echo     Rscript -e "rhub::rhub_check()"
+echo     win-builder, R-devel: upload the tarball at
+echo       https://win-builder.r-project.org/upload.aspx
+echo       The result is mailed to the maintainer.
+echo     R-hub, R-devel on four platforms, against what is pushed:
+echo       gh workflow run rhub.yaml -f config=linux,windows,macos,macos-arm64
+echo       gh run watch
 echo.
 echo   Then submit the tarball at
 echo     https://cran.r-project.org/submit.html
