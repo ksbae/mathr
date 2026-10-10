@@ -11,7 +11,7 @@ Incomplete gamma function, Q(a, x) = 1 - P(a, x)
 }
 \details{
 This calls \code{gser} or \code{gcf}.
-Ref: Cephes igam/igamc, as redistributed in ALGLIB specialfunctions.cs
+Ref: Cephes igam/igamc, as redistributed in ALGLIB specialfunctions.cs.
 This function works a value at a time: \code{a} and \code{x} must each be a
 single number. Use \code{sapply} for a vector.
 }

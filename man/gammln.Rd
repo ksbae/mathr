@@ -9,7 +9,7 @@ Log gamma function
   \item{xx}{a real positive number to be gammln-ed}
 }
 \details{
-Ref: Lanczos g=7 coefficients as used by the GNU Scientific Library, gsl_sf_lngamma
+Ref: Lanczos g=7 coefficients as used by the GNU Scientific Library, gsl_sf_lngamma.
 This function works a value at a time: \code{xx} must be a single number.
 Use \code{sapply} for a vector.
 }

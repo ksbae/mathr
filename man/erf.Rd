@@ -11,7 +11,7 @@ Error function.
 \details{
 This calls \code{gammp}.
 
-Ref: erf(x) = P(1/2, x^2), the relation the GNU Scientific Library uses between gsl_sf_erf and gsl_sf_gamma_inc_P
+Ref: erf(x) = P(1/2, x^2), the relation the GNU Scientific Library uses between gsl_sf_erf and gsl_sf_gamma_inc_P.
 This function works a value at a time: \code{x} must be a single number.
 Use \code{sapply} for a vector.
 }

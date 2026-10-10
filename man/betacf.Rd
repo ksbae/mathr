@@ -11,7 +11,7 @@ Incomplete beta function with parameter a and b
   \item{x}{to which it integrates}
 }
 \details{
-Ref: Abramowitz and Stegun 26.5.8; beta_cont_frac of the GNU Scientific Library, specfunc/beta_inc.c
+Ref: Abramowitz and Stegun 26.5.8; beta_cont_frac of the GNU Scientific Library, specfunc/beta_inc.c.
 This function works a value at a time: \code{a}, \code{b} and \code{x} must
 each be a single number. Use \code{sapply} for a vector.
 }

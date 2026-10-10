@@ -11,7 +11,7 @@ Series approximation of incomplete gamma function, P(a, x)
 }
 \details{
 This calls \code{gammln}.
-Ref: Abramowitz and Stegun 6.5.29; Cephes igam, as redistributed in ALGLIB specialfunctions.cs
+Ref: Abramowitz and Stegun 6.5.29; Cephes igam, as redistributed in ALGLIB specialfunctions.cs.
 This function works a value at a time: \code{a} and \code{x} must each be a
 single number. Use \code{sapply} for a vector.
 }

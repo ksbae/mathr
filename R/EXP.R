@@ -25,7 +25,8 @@ EXP = function(x)
   # Above log(.Machine$double.xmax) exp(x) is past every double, and below
   # -1075*ln2 it is under half the least subnormal and rounds to zero.
   # Outside that window the reduction below has nothing to reduce to: g
-  # grows with x until y = g*g overflows and the rational form gives NaN.
+  # grows with x until g*P(y) and Q(y) both overflow, and the rational
+  # form divides one infinity by another, or by NaN, which is NaN.
   # x is its own magnitude by now, so Neg picks the limit that applies.
   BigX   = 709.78271289338397   # log(.Machine$double.xmax), 1024*ln2
   SmallX = 745.13321910194122   # 1075*ln2

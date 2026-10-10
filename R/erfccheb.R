@@ -1,8 +1,6 @@
-# Retained for backward compatibility.
-#
-# In earlier releases this evaluated erfc for nonnegative arguments from
-# a 28-term Chebyshev fit. erfc() now uses the Cephes rational
-# approximation over the whole range, so this function forwards to it.
+# Retained for backward compatibility. It forwards to erfc(), which
+# evaluates erfc(z) = Q(1/2, z^2) through gammq(); no Chebyshev fit is
+# involved despite the name.
 erfccheb = function(z)
 {
   .Scalar1("erfccheb", z)

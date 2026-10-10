@@ -11,6 +11,7 @@ This function uses Lanczos' approximation and is fairly short.
 }
 \details{
 If abs(z) is less than or equal to 171, it uses GAMMA function.
+Ref: Lanczos g=7 coefficients as used by the GNU Scientific Library, gsl_sf_lngamma.
 This function works a value at a time: \code{z} must be a single number.
 Use \code{sapply} for a vector.
 }

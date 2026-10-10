@@ -11,7 +11,7 @@ Inverse of complementary error function.
 \details{
 It goes through the normal quantile, since erfc(x) = 2 Phi(-x sqrt(2)).
 
-Ref: Cephes ndtri, as redistributed in ALGLIB specialfunctions.cs (invnormalcdf)
+Ref: Cephes ndtri, as redistributed in ALGLIB specialfunctions.cs (invnormalcdf).
 This function works a value at a time: \code{p} must be a single number.
 Use \code{sapply} for a vector.
 }
