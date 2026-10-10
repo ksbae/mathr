@@ -1,5 +1,7 @@
 ellipse = function(center=c(0, 0), radius=c(2, 1), alpha=0, npoints=100, add=FALSE, ...)
 {
+  .Scalar1("ellipse", add)
+
   theta = seq(0, 2*pi, length=npoints + 1)
   x0 = radius[1]*cos(theta)
   y0 = radius[2]*sin(theta)

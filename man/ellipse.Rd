@@ -15,6 +15,7 @@ Plot ellipse and return coordinates.
 }
 \details{
 This plots an ellipse and returns coordinates of points used to plot.
+\code{add} must be a single value, not a vector.
 }
 \value{
 coordinates of points used to plot.

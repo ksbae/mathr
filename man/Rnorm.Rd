@@ -12,6 +12,7 @@ Generate random numbers from a normal distribution
 }
 \details{
 It is more efficient with even n.
+\code{n} must be a single number, not a vector.
 }
 \value{
   a vector of random numbers

@@ -18,6 +18,8 @@ Shows how a quasi-Newton type optimization algorithm works.
 }
 \details{
 If the changes of between steps are less than the tolerances, it stops.
+\code{GradTol}, \code{StepTol}, \code{FnTol} and \code{ItnLimit} must each
+be a single number, not a vector.
 }
 \value{
   \item{par}{final x vector values}

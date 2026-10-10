@@ -6,9 +6,11 @@
 # reason. This says both. It is internal: the leading dot keeps it out
 # of exportPattern("^[[:alpha:]]+").
 #
-# Only the arguments that actually drive an if are passed in. Several of
-# these functions take a vector elsewhere and give the right answer for
-# it, and those arguments are deliberately left unguarded.
+# Only the arguments that actually drive an if, or a while, are passed
+# in. Several of these functions take a vector elsewhere and give the
+# right answer for it, and those arguments are deliberately left
+# unguarded. Some of the guarded ones are TRUE or FALSE rather than a
+# number, hence "a single value".
 
 .Scalar1 = function(Fn, ...)
 {
@@ -17,6 +19,6 @@
   Nms = as.character(substitute(list(...)))[-1]
   stop (Fn, " takes one value at a time; ",
         paste(Nms[Len != 1L], collapse = ", "),
-        " must be a single number. Use sapply() for a vector.",
+        " must be a single value. Use sapply() for a vector.",
         call. = FALSE)
 }

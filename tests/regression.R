@@ -36,6 +36,11 @@ stopifnot(tol(Grad(f_elem, 3), 6, 1e-6))
 stopifnot(tol(Grad(f_red,  3), 6, 1e-6))
 stopifnot(!is.na(Grad(f_red, 3)))
 
+## runifLC and SymInv had the same 2:n loop, so runifLC() at its default
+## n = 1 and SymInv on a 1x1 matrix both stopped with an error.
+stopifnot(length(runifLC()) == 1, identical(runifLC(), runifLC(3)[1]),
+          tol(SymInv(matrix(4)), matrix(0.25)))
+
 ## Grad and Deriv2 implement the same algorithm and must agree.
 g <- function(x) sum(x^2) + prod(x)
 for (x0 in list(3, c(1, 2), c(-1, 0.5, 2))) {
@@ -137,11 +142,13 @@ for (s in 1:3) {
 ## ---- EXP: the argument reduction has to round -----------------------
 ## xexp = x*invln2 was left as a real number, so g = x - xexp*(c1 + c2)
 ## never grew past about 1e-13, the |g| < sqrt(eps) branch was taken every
-## time, and the rational approximation under it was dead code. What came
-## back was 2^(x/ln2) and nothing else, up to 223 ulp off at the ends of
-## the range. Rounding xexp puts the reduced argument in |g| <= ln2/2,
-## which is the interval the p and q coefficients were fitted on, and the
-## whole range comes back to about 1.5 ulp.
+## time the result was finite and nonzero, and the rational approximation
+## under it was dead code there. What came
+## back was 2^(x/ln2) and nothing else, up to 223 eps off in relative
+## terms (about 444 ulp) at the ends of the range. Rounding xexp puts the
+## reduced argument in |g| <= ln2/2, which is the interval the p and q
+## coefficients were fitted on, and the whole range comes back to about
+## 1.5 eps relative, about 2 ulp.
 maxrel <- function(f, xs) max(abs(vapply(xs, f, 0) - exp(xs))/exp(xs))
 set.seed(3)
 stopifnot(maxrel(EXP, c(seq(-708, 708, by = 0.31),
@@ -163,9 +170,9 @@ stopifnot(is.finite(EXP(709.78)), EXP(-745) > 0,
 
 ## The overflow guard sat at 0.9*double.xmax, which is nowhere near where
 ## exp overflows, so a large argument reached a reduction that could not
-## reduce it: g grew with x until the numerator of the rational form
-## overflowed, and the denominator with it, leaving Inf minus Inf. NaN
-## first appeared around 1e78 and was total from about 1e82.
+## reduce it: g grew with x until the numerator and the denominator of
+## the rational form both overflowed, and their quotient was NaN. NaN
+## first appeared around 2e78 and was nearly total from about 1e82.
 quiet <- function(v) suppressWarnings(v)
 stopifnot(!is.nan(quiet(EXP(1e100))), !is.nan(EXP(-1e100)))
 stopifnot(quiet(EXP(1e100)) == Inf, quiet(EXP(1e300)) == Inf,
@@ -176,12 +183,18 @@ stopifnot(quiet(EXP(710)) == Inf, EXP(-746) == 0)
 ## latter being where exp falls under half the least subnormal. Each has
 ## to land on the exact double, or the guard eats results that are still
 ## representable, or lets through arguments the reduction cannot take.
-stopifnot(tol(EXP(709.78271289338397), exp(709.78271289338397), 1e-15),
-          quiet(EXP(709.78271289338409)) == Inf,
-          EXP(-745.13321910194111) > 0,
-          EXP(-745.13321910194122) == 0)
+## The arguments are written in hex: R reads a 17-digit decimal through
+## long double, and on a build where that is a plain double the last
+## digit can land one double off. In decimal they are 709.78271289338397
+## and the double above it, and 745.13321910194111 and the one above it.
+stopifnot(tol(EXP(0x1.62e42fefa39efp+9), exp(0x1.62e42fefa39efp+9), 1e-15),
+          quiet(EXP(0x1.62e42fefa39f0p+9)) == Inf,
+          EXP(-0x1.74910d52d3051p+9) > 0,
+          EXP(-0x1.74910d52d3052p+9) == 0)
 
-## Overflow is announced, underflow to zero is not, as before.
+## Overflow is announced, underflow to zero is not. Before 0.1.4 only
+## arguments past 0.9*double.xmax were announced; those below it came
+## back as Inf, or NaN, without a word.
 stopifnot(inherits(tryCatch(EXP(710), warning = function(w) w), "warning"),
           !inherits(tryCatch(EXP(-1e100), warning = function(w) w), "warning"))
 
@@ -201,15 +214,30 @@ stopifnot(grepl("one value at a time", emsg(EXP(c(1, 2, 3)))),
           grepl("one value at a time", emsg(EXP(c(-Inf, 0)))))
 stopifnot(maxrel(EXP, c(1, 2, 3)) < 1e-15)   # sapply/vapply is the way
 
-## The same guard is on every argument in the package that drives an if,
-## so none of them reaches R's message any more. .Scalar1 names the
-## function and the offending argument.
+## The same guard is on every argument in the package that drives an if
+## or a while, so none of them reaches R's message any more. .Scalar1
+## names the function and the offending argument.
 stopifnot(grepl("one value at a time", emsg(LOG(c(1, 2)))),
           grepl("one value at a time", emsg(SQRT(c(1, 2)))),
           grepl("one value at a time", emsg(GAMMA(c(1, 2)))),
           grepl("one value at a time", emsg(betai(c(1, 2), 2, 0.5))),
           grepl("sig", emsg(Pnorm(1, 0, c(1, 2)))),      # a later argument
           grepl("nu",  emsg(Dt(1, c(1, 2)))))            # ditto
+
+## 0.1.4 left some out: p in Qf, Tol in VMmin, Plot in mlr, add in
+## ellipse, the tolerances and iteration limit of Optim0, and n in Rnorm.
+## Each still stopped with one of R's own errors.
+f2 <- function(x) sum((x - 2.5)^2)
+stopifnot(grepl("Qf takes .*p must",    emsg(Qf(c(0.9, 0.95), 4, 9))),
+          grepl("VMmin takes .*Tol",    emsg(VMmin(0, f2, Tol = c(1, 1)))),
+          grepl("mlr takes .*Plot",     emsg(mlr(1:3, 1:3, Plot = c(TRUE, TRUE)))),
+          grepl("ellipse takes .*add",  emsg(ellipse(add = c(TRUE, TRUE)))),
+          grepl("Rnorm takes .*n must", emsg(Rnorm(c(2, 2)))))
+for (a in c("GradTol", "StepTol", "FnTol", "ItnLimit")) {
+  arg <- list(0, f2)
+  arg[[a]] <- c(1, 1)
+  stopifnot(grepl(paste0("Optim0 takes .*", a), emsg(do.call(Optim0, arg))))
+}
 
 ## Arguments that do take a vector, and give the right answer for one,
 ## are deliberately left unguarded. Guarding them would be a regression.

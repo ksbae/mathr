@@ -13,7 +13,8 @@ Multiple linear regression.
 }
 \details{
 It shows various outputs.
-\code{standardize} must be a single number, not a vector.
+\code{standardize} and \code{Plot} must each be a single value, not a
+vector.
 }
 \value{
   \item{Variable}{variable names}

@@ -1,5 +1,7 @@
 Rnorm = function(n, mu=0, sigma=1)
 {
+  .Scalar1("Rnorm", n)
+
   Res = vector(length=n+1)
   i = 1
   while (i <= n) {

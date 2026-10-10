@@ -17,7 +17,7 @@ SymInv = function(SymMat) # Use only lower triangular part, Nondestructive
   }
 
 # Inverse L
-  for (i in 2:n) {
+  if (n > 1) for (i in 2:n) {
     for (j in (i-1):1) {
       for (k in j:(i-1)) Linv[i,j] = Linv[i,j] - L[i,k] * Linv[k,j]
     }

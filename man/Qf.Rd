@@ -12,7 +12,8 @@ Calculate the f for the cumulative probability p of an F distribution
 }
 \details{
 It calculates the f for the cumulative probability p of an F distribution.
-\code{nu1} and \code{nu2} must each be a single number, not a vector.
+This function works a value at a time: \code{p}, \code{nu1} and \code{nu2}
+must each be a single number. Use \code{sapply} for a vector.
 }
 \value{
   f of \code{Pf(f, nu1, nu2)}

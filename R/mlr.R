@@ -5,14 +5,14 @@
 
 mlr <- function(y, x.raw, standardize=0, Plot=FALSE)
 {
-  .Scalar1("mlr", standardize)
+  .Scalar1("mlr", standardize, Plot)
 
   x.mat <- as.matrix(x.raw)
   if (length(y) != nrow(x.mat)) {
     message("Numbers of rows of x matrix and y vector are different.")
     return(NULL)
   }
-  if (anyNA(y) | anyNA(x.mat)) {
+  if (any(is.na(y)) | any(is.na(x.mat))) {
     message("Missing values in y or x. Remove them before calling mlr().")
     return(NULL)
   }
