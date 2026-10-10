@@ -7,6 +7,7 @@ MachEps3 = function(MaxIter=1000)
   NextEps = (lb + ub)/2
 
   i = 0  # iteration number
+  CurEps = NextEps  # what MaxIter = 0 returns
   while (NextEps != lb & NextEps != ub & i < MaxIter) {
     i = i + 1
     CurEps = NextEps

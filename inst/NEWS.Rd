@@ -10,18 +10,64 @@
           \code{Tol} in \code{VMmin}, \code{Plot} in \code{mlr},
           \code{add} in \code{ellipse}, \code{GradTol}, \code{StepTol},
           \code{FnTol} and \code{ItnLimit} in \code{Optim0}, and \code{n}
-          in \code{Rnorm}. Given a vector, each still stopped with one of
-          R's own errors. Every argument that drives an \code{if} or a
-          \code{while} is now checked, 139 argument positions across 67
-          functions, and the help pages of the six functions name the
-          arguments added. Since \code{Plot}, \code{add}, \code{Double} in
-          \code{Dec2Bin} and \code{DecFlag} in \code{LOG} are TRUE or
-          FALSE, the error, and their help pages, now ask for "a single
-          value" rather than "a single number".}
-    \item{\code{runifLC()} at its default \code{n = 1}, and \code{SymInv}
-          on a 1 x 1 matrix, stopped with an error, because \code{2:n}
-          counts down when n is 1. Both now skip that loop, as \code{Grad}
-          and \code{Deriv2} already did.}
+          in \code{Rnorm}, and so in \code{Rmvn}, which hands it to
+          \code{Rnorm}. Given a vector, each still stopped with one of R's
+          own errors. Every argument that drives an \code{if} or a
+          \code{while} is now checked, and \code{n} in \code{Rmvn}
+          besides: 142 argument positions across 70 functions, among them
+          \code{n} in \code{trapez1} and \code{N} in \code{romb}, which
+          gained an \code{if} with the fixes below. The help pages of the
+          nine functions name the arguments added. Since \code{Plot},
+          \code{add}, \code{Double} in \code{Dec2Bin} and \code{DecFlag}
+          in \code{LOG} are TRUE or FALSE, the error, and their help
+          pages, now ask for "a single value" rather than "a single
+          number".}
+    \item{At a size of one, several functions failed. \code{runifLC()}
+          at its default \code{n = 1}, \code{SymInv}, \code{LDLT} and
+          \code{evJacobi} on a 1 x 1 matrix, and \code{romb} with
+          \code{N = 1} stopped with an error; \code{trapez0} on a single
+          point returned NA; \code{trapez1} with \code{n = 1} returned
+          three times the trapezoidal value, and \code{NashSVD} on a
+          one-column matrix returned 0 as its singular value. In most, a
+          \code{2:n} or \code{1:(n-1)} that should be empty at n = 1
+          counted down instead (in \code{trapez1} it added both end points
+          a second time); \code{NashSVD} has no pair of columns to rotate
+          then, and so never set the singular value. Each now handles the
+          case, as \code{Grad} and \code{Deriv2} already did, and the
+          \code{romb} page no longer asks for N above 2.}
+    \item{At n = 0, \code{Rnorm} returned FALSE, and \code{Rgamma},
+          \code{Rgamma0} and \code{Rbeta} returned one deviate for most
+          shapes, where \code{rnorm(0)} gives \code{numeric(0)}. They all
+          give \code{numeric(0)} now.}
+    \item{\code{SQRT(Inf)} never returned: it handed Inf to \code{NORM},
+          whose halving loop cannot end on Inf, and \code{NORM} looped
+          forever on a negative x as well. \code{SQRT(Inf)} is now Inf,
+          with the warning \code{EXP} and \code{LOG} give; \code{NORM}
+          stops with a message on a non-finite x and gives a negative
+          fraction for a negative x.}
+    \item{\code{evJacobi} stopped with "object 's' not found" on some
+          symmetric matrices, \code{diag(c(2, 1))} among them: a test on
+          the rotation sine ran on a pair that needed no rotation, before
+          any sine had been set. The test now runs only when a rotation is
+          made.}
+    \item{\code{VMmin} never returned when its search direction right
+          after resetting the Hessian estimate was not downhill, as at a
+          starting point where the gradient is zero: a misspelt
+          \code{SmallXCount} kept its loop alive. \code{Optim0} stopped
+          with "object 'RelStep' not found" whenever it ended on its first
+          iteration; \code{RelStep} and \code{DelF} are NA then.}
+    \item{\code{MachEps3} and \code{MachEps4} with \code{MaxIter = 0}
+          stopped with "object 'CurEps' not found"; they return their
+          first trial value, 0.5 and -0.5, with iteration 0.
+          \code{Dec2Bin(0)} took the logarithm of 0 and returned NaN bits;
+          it returns all zeros, the pattern of +0, and for -0 the same
+          with the sign bit set. \code{Run.test} returned a p-value of 2 when no
+          nonzero value was left; it returns NA.}
+    \item{Given NA, \code{EXP}, \code{LOG} and \code{SQRT} stopped with
+          R's "missing value where TRUE/FALSE needed", and \code{SQRT} did
+          the same for NaN. They now return NA for NA, as \code{exp},
+          \code{log} and \code{sqrt} do, and \code{SQRT} returns NaN for
+          NaN with the warning \code{EXP} and \code{LOG} already give.}
     \item{\code{mlr} no longer calls \code{anyNA}, which first appeared in
           R 3.1.0, above the R (>= 3.0.0) that DESCRIPTION declares.}
     \item{Source comments that described methods the code does not use

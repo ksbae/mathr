@@ -12,7 +12,8 @@ Integrates with given fx, a, b, and n
   \item{n}{split count}
 }
 \details{
-This gives approximate integration value using trapezoidal rule. 
+This gives approximate integration value using trapezoidal rule.
+\code{n} must be a single number, not a vector.
 }
 \value{
   Integration value from a to b with function.

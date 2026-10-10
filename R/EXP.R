@@ -3,13 +3,15 @@ EXP = function(x)
   .Scalar1("EXP", x)
 
   if (is.nan(x)) {
-    warning ("Input is NaN.") 
+    warning ("Input is NaN.")
     return (NaN)
+  } else if (is.na(x)) {
+    return (NA_real_)
   } else if (x == +Inf) {
-    warning ("Input is +Inf.") 
+    warning ("Input is +Inf.")
     return (+Inf)
   } else if (x == -Inf) {
-    warning ("Input is -Inf.") 
+    warning ("Input is -Inf.")
     return (0)
   } else if (x == 0) {
     return (1.0)

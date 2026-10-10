@@ -7,10 +7,10 @@ Rgamma = function(n, alph, bet)
 
   stopifnot(alph > 0, bet > 0)
   exp1 = exp(1)
-  Res = vector(length=n)
+  Res = numeric(n)
   if (alph < 1) {
     bet1 = (exp1 + alph)/exp1
-    for (i in 1:n) {
+    for (i in seq_len(n)) {     # 1:n would count down at n = 0
       while (TRUE) {
         U = runif(2)
         W = bet1*U[1]
@@ -29,7 +29,7 @@ Rgamma = function(n, alph, bet)
     bet1 = alph - log(4)
     gamm1 = alph + 1/alph1
     del1 = 1 + log(4.5)
-    for (i in 1:n) {
+    for (i in seq_len(n)) {
       while (TRUE) {
         U = runif(2)
         V = alph1*log(U[1]/(1 - U[1]))

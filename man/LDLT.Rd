@@ -13,7 +13,7 @@ Input should be a symmetric matrix of real values.
 }
 \value{
   \item{L}{lower triangular matrix}
-  \item{D}{diagonal matrix}
+  \item{D}{the diagonal of D, as a vector}
 }
 \examples{
 M <- matrix(c(4, 2, 2, 3), 2, 2)

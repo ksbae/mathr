@@ -24,6 +24,7 @@ VMmin = function(x0, func, MaxIter=9999, Tol=1e-4)
   p = vector(length=DimX);           # direction vector k * -B %*% g, Length is adujsted with k <= 1.0
 
   CurX = x0;
+  CurF = Fmin             # returned as is if the first step is never taken
   CurGr = Grad(func, x0);
   FnCount = 1
   GrCount = 1
@@ -84,7 +85,7 @@ VMmin = function(x0, func, MaxIter=9999, Tol=1e-4)
       }
     } else { # GrDot > 0 : uphill -> Reset B, unless has just been reset
       if (ResetIter == GrCount) {
-        SmallXcount = DimX  # just resetted B -> Exit Loop
+        SmallXCount = DimX  # just resetted B -> Exit Loop
         StopFlag = StopFlag + 4;
       }
       else {

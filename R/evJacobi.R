@@ -10,7 +10,7 @@ evJacobi = function (A)
   else {
     n = dim(A)[1]
     if (n != dim(A)[2]) InputOK = FALSE
-    for (i in 2:n) {
+    if (n > 1) for (i in 2:n) {
       for (j in 1:(i-1)) if (A[i,j] - A[j,i] > 2*.Machine$double.eps) InputOK = FALSE
     }
   }
@@ -22,7 +22,7 @@ evJacobi = function (A)
   V = diag(rep(1, n))          # Make a unit matrix for the return
   MAXITER = 30
   for (Iteration in 1:MAXITER) {  # Iteration variable is not used below.
-    for (i in 1:(n - 1)) {
+    if (n > 1) for (i in 1:(n - 1)) {
       for (j in (i + 1):n) {
         rotn = TRUE
         p = 0.5*(A[i,j] + A[j,i])
@@ -46,7 +46,9 @@ evJacobi = function (A)
             if (p < 0.0) s = -s
             c = p/(t*s)
           }
-          if (1.0 + abs(s) == 1.0) rotn = FALSE
+          # s is set only when a rotation is made; on a pair that needs
+          # none it may not exist yet.
+          if (rotn == TRUE && 1.0 + abs(s) == 1.0) rotn = FALSE
         }
         if (rotn == TRUE) {
           for (k in 1:n) {

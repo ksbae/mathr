@@ -12,6 +12,7 @@ Generate random numbers from a multivariate normal distribution
 }
 \details{
 It uses Cholesky decomposition.
+\code{n} must be a single number, not a vector.
 }
 \value{
   a matrix of random vectors

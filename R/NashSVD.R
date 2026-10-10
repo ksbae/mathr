@@ -13,6 +13,9 @@ NashSVD = function(M)
 #  }
   W = rbind(M, diag(rep(1, nCol)))
   Z = vector(length=nCol)
+  # With one column there is nothing to rotate, so the sweeps below never
+  # set Z. Its only singular value is the length of that column.
+  if (nCol == 1) Z[1] = sum(M[, 1]^2)
 
   eps = .Machine$double.eps
   e2 = 10.0*nRow*eps*eps

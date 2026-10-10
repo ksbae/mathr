@@ -1,7 +1,6 @@
 ## Test environments
 
 * local Windows 11 x64, R 4.6.1 -- `R CMD check --as-cran`: OK
-* local Windows 11 x64, R 4.5.3 -- `R CMD check --as-cran`: OK
 
 ## R CMD check results
 
@@ -36,23 +35,37 @@ rational form overflowed. The guards are now at
 `EXP(-Inf)` returned `-Inf` rather than 0, its branch having been the
 `+Inf` branch with the sign flipped.
 
-Given a vector, the functions here that work a value at a time failed
-with one of R's own errors, nearly always
-"the condition has length > 1", none of which names the function or the
-cause. One internal
-helper now checks every argument that drives an `if` or a `while`, 139
-argument positions across 67 functions, and its error names the
-function and the argument. Each of the 67 help pages names the
-arguments its own function constrains. Arguments that do accept a vector
-and return the right answer for one are untouched; the tests assert this
-for `Qnorm`, `Dnorm`, `Dlnorm` and `Round`.
+Given a vector where they need a single number, the functions here
+failed with one of R's own errors, nearly always
+"the condition has length > 1", or in a few cases returned a wrong
+result, and none of that names the function or the cause. One internal
+helper now checks every argument that drives an `if` or a `while`, and
+`n` in `Rmvn`, which reaches one through `Rnorm`: 142 argument positions
+across 70 functions. Its error names the function and the argument, and
+each of the 70 help pages names the arguments its own function
+constrains. Arguments that do accept a vector and return the right
+answer for one are untouched; the tests assert this for `Qnorm`,
+`Dnorm`, `Dlnorm` and `Round`.
 
-Two older faults are fixed as well: `runifLC()` at its default `n = 1`,
-and `SymInv` on a 1 x 1 matrix, stopped with an error.
+Older faults are fixed as well. At a size of one, `runifLC()` at its
+default `n = 1`, `SymInv`, `LDLT` and `evJacobi` on a 1 x 1 matrix, and
+`romb` with `N = 1` stopped with an error; `trapez0` on a single point
+returned NA; `trapez1` with `n = 1` returned three times the
+trapezoidal value; `NashSVD` on a one-column matrix returned 0 as its
+singular value; and at n = 0 `Rnorm` returned FALSE and `Rgamma`,
+`Rgamma0` and `Rbeta`, for most shapes, a deviate, instead of
+`numeric(0)`. `SQRT(Inf)` never returned, nor did `NORM` on Inf or a
+negative number, nor `VMmin` when started where the gradient is zero. `evJacobi` stopped on some symmetric
+matrices such as `diag(c(2, 1))`, `Optim0` when it ended on its first
+iteration, and `MachEps3` and `MachEps4` with `MaxIter = 0`.
+`Dec2Bin(0)` returned NaN bits, and `Run.test` a p-value of 2 when no
+nonzero value was left. Given NA, `EXP`, `LOG` and `SQRT` stopped with
+R's "missing value where TRUE/FALSE needed", as `SQRT` did given NaN;
+they now return what `exp`, `log` and `sqrt` do.
 
 The EXP fixes are covered by new assertions in `tests/regression.R`, the
-argument check by assertions on 13 of the guarded functions, and the two
-older faults by assertions of their own.
+argument check by assertions on 16 of the guarded functions, and the
+other faults by assertions of their own.
 
 The release also carries the documentation work: help page titles that
 were wrong or duplicated are corrected, two examples that lost their last

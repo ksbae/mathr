@@ -41,6 +41,48 @@ stopifnot(!is.na(Grad(f_red, 3)))
 stopifnot(length(runifLC()) == 1, identical(runifLC(), runifLC(3)[1]),
           tol(SymInv(matrix(4)), matrix(0.25)))
 
+## 2:n or 1:(n-1) counts down at n = 1: LDLT and evJacobi on a 1x1
+## matrix and romb with N = 1 stopped with an error, trapez0 on a single
+## point gave NA, and trapez1 with n = 1 gave three times the answer.
+## NashSVD on one column, with no pair of columns to rotate, gave 0.
+stopifnot(tol(LDLT(matrix(4)), list(L = matrix(1), D = 4)),
+          tol(evJacobi(matrix(4)), list(values = 4, vectors = matrix(1))),
+          tol(romb(sin, 0, 1, 1), (sin(0) + sin(1))/2),
+          identical(trapez0(1, 2), 0),
+          tol(trapez1(function(x) x^2, 0, 1, 1), 0.5),
+          tol(NashSVD(matrix(c(3, 4), ncol = 1))$d, 5))
+
+## evJacobi read the rotation sine before setting it, on a pair that
+## needs no rotation, so a diagonal matrix could stop it.
+stopifnot(tol(evJacobi(diag(c(2, 1)))$values, c(2, 1)),
+          tol(evJacobi(diag(c(3, 2, 1)))$values, c(3, 2, 1)))
+
+## Started where the gradient is zero, VMmin never returned, a misspelt
+## SmallXCount keeping its loop alive, and Optim0 stopped on "object
+## 'RelStep' not found".
+fz <- function(x) sum((x - 2.5)^2)
+stopifnot(VMmin(2.5, fz)$par == 2.5, Optim0(2.5, fz)$par == 2.5,
+          is.na(Optim0(2.5, fz)$RelStep))
+
+## At n = 0 the generators returned FALSE or one deviate; rnorm(0) is
+## numeric(0).
+stopifnot(identical(Rnorm(0), numeric(0)),
+          identical(Rgamma(0, 3, 2), numeric(0)),
+          identical(Rgamma(0, 0.5, 2), numeric(0)),
+          identical(Rgamma0(0, 3, 2), numeric(0)),
+          identical(Rbeta(0, 2, 5), numeric(0)))
+
+## MaxIter = 0 left MachEps3 and MachEps4 with nothing to return,
+## Dec2Bin(0) took log2(0) = -Inf and gave NaN bits where +0 is all
+## zeros (and -0 all zeros but the sign bit), and Run.test gave a p-value
+## of 2 when no nonzero value was left.
+stopifnot(as.vector(MachEps3(0)) == 0.5, attr(MachEps3(0), "iteration") == 0,
+          as.vector(MachEps4(0)) == -0.5,
+          identical(Dec2Bin(0), rep(0, 64)),
+          identical(Dec2Bin(0, FALSE), rep(0, 32)),
+          identical(Dec2Bin(-0), c(1, rep(0, 63))),
+          is.na(Run.test(c(0, 0))), is.na(Run.test(numeric(0))))
+
 ## Grad and Deriv2 implement the same algorithm and must agree.
 g <- function(x) sum(x^2) + prod(x)
 for (x0 in list(3, c(1, 2), c(-1, 0.5, 2))) {
@@ -205,6 +247,18 @@ stopifnot(identical(quiet(EXP(-Inf)), exp(-Inf)),
           is.nan(quiet(EXP(NaN))))
 stopifnot(quiet(EXP(-Inf)) == 0)
 
+## NA stopped EXP, LOG and SQRT with R's "missing value where TRUE/FALSE
+## needed", and NaN stopped SQRT the same way. They now give what exp,
+## log and sqrt give.
+stopifnot(identical(EXP(NA), exp(NA)), identical(LOG(NA), log(NA)),
+          identical(SQRT(NA), sqrt(NA)), is.nan(quiet(SQRT(NaN))))
+
+## SQRT(Inf) never returned: it handed Inf to NORM, whose halving loop
+## cannot end on Inf, and NORM did the same with a negative x.
+stopifnot(identical(quiet(SQRT(Inf)), Inf),
+          identical(NORM(-3), c(-0.75, 2)),
+          inherits(tryCatch(NORM(Inf), error = function(e) e), "error"))
+
 ## A vector reached is.nan() and died on the length of an if condition,
 ## with a message that named neither EXP nor the reason. EXP takes one
 ## value at a time, like the rest of the package, and now says so.
@@ -226,13 +280,19 @@ stopifnot(grepl("one value at a time", emsg(LOG(c(1, 2)))),
 
 ## 0.1.4 left some out: p in Qf, Tol in VMmin, Plot in mlr, add in
 ## ellipse, the tolerances and iteration limit of Optim0, and n in Rnorm.
-## Each still stopped with one of R's own errors.
+## Each still stopped with one of R's own errors, and so did Rmvn, which
+## hands its n to Rnorm. Rmvn now checks n itself. trapez1 and romb
+## gained an if on n and N when a size of one was fixed, so they check
+## those too.
 f2 <- function(x) sum((x - 2.5)^2)
 stopifnot(grepl("Qf takes .*p must",    emsg(Qf(c(0.9, 0.95), 4, 9))),
           grepl("VMmin takes .*Tol",    emsg(VMmin(0, f2, Tol = c(1, 1)))),
           grepl("mlr takes .*Plot",     emsg(mlr(1:3, 1:3, Plot = c(TRUE, TRUE)))),
           grepl("ellipse takes .*add",  emsg(ellipse(add = c(TRUE, TRUE)))),
-          grepl("Rnorm takes .*n must", emsg(Rnorm(c(2, 2)))))
+          grepl("Rnorm takes .*n must", emsg(Rnorm(c(2, 2)))),
+          grepl("Rmvn takes .*n must",  emsg(Rmvn(c(2, 2), c(0, 0), diag(2)))),
+          grepl("trapez1 takes .*n must", emsg(trapez1(sin, 0, 1, c(2, 4)))),
+          grepl("romb takes .*N must",  emsg(romb(sin, 0, 1, c(2, 4)))))
 for (a in c("GradTol", "StepTol", "FnTol", "ItnLimit")) {
   arg <- list(0, f2)
   arg[[a]] <- c(1, 1)

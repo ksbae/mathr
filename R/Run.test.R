@@ -2,6 +2,7 @@ Run.test = function(RES)
 {
   RES = RES[RES != 0] # Zeros are omitted.
   t = length(RES)
+  if (t == 0) return(NA_real_)  # no runs to count; the p-value is undefined
   r = RES > 0
   m = sum(r)
   if (t > 1) {

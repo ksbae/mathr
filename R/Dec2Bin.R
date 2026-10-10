@@ -16,6 +16,10 @@ Dec2Bin = function(x, Double=TRUE)
     a = rep(0, 32)
   }
 
+  if (x == 0) {          # log2(0) below would be -Inf
+    if (1/x < 0) a[1] = 1  # -0 differs from +0 only in the sign bit
+    return(a)
+  }
   if (x < 0) a[1] = 1
 
   E0 = floor(log(abs(x), base=2))

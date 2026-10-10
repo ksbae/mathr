@@ -14,7 +14,7 @@ LDLT = function(SymMat) # Use only lower triangular part, Nondestructive
   }
 ## Now prepare return
   D = diag(L)
-  for (i in 1:(n - 1)) {
+  if (n > 1) for (i in 1:(n - 1)) {
     L[i,i] = 1
     for (j in (i + 1):n) L[i,j] = 0
   }

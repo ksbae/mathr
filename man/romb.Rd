@@ -12,7 +12,9 @@ Integrates with given fx, a, b, and N
   \item{N}{degree; the larger, the more precise}
 }
 \details{
-This gives approximate integration value using Romberg integration. Argument N should be larger than 2.
+This gives approximate integration value using Romberg integration. N is
+the number of rows of the Romberg table; N = 1 is the trapezoidal rule
+over the whole interval. \code{N} must be a single number, not a vector.
 }
 \value{
   Integration value from a to b with function.

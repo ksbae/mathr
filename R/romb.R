@@ -1,10 +1,12 @@
 romb = function(fx, a, b, N=4)
 {
+  .Scalar1("romb", N)
+
   R = matrix(nrow=N, ncol=N)
   h = b - a
   R[1,1] = h / 2 * (fx(a) + fx(b))
   np = 1
-  for (i in 2:N) {
+  if (N > 1) for (i in 2:N) {
     h = h / 2
     np = 2 * np
     R[i,1] = 1/2 * R[i-1,1] + h * sum(fx(a + h*seq(1, np-1, 2)))

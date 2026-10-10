@@ -2,6 +2,8 @@
 
 Rmvn = function(n, Mu, Cov)
 {
+  .Scalar1("Rmvn", n)
+
   cCov = chol(Cov)
   nDim = dim(Cov)[1]
   x = matrix(Rnorm(n*nDim), nrow=n, ncol=nDim)

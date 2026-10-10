@@ -3,8 +3,10 @@ LOG = function(x, DecFlag=FALSE)
   .Scalar1("LOG", x, DecFlag)
 
   if (is.nan(x)) {
-    warning ("Input is NaN.") 
+    warning ("Input is NaN.")
     return (NaN)
+  } else if (is.na(x)) {
+    return (NA_real_)
   } else if (x == +Inf) {
     warning ("Input is +Inf.") 
     return (+Inf)
