@@ -8,7 +8,7 @@ its source open: every routine is short and written to be read.
 
 ## Install
 
-CRAN has 0.1.3; this branch is 0.1.4 in development, not yet released.
+CRAN has 0.1.3; this branch is 0.1.5 in development, not yet released.
 
 ```r
 install.packages("mathr")
@@ -20,9 +20,9 @@ remotes::install_github("ksbae/mathr")
 
 ## Implementation notes
 
-The special functions, and every distribution function built on them,
-follow freely licensed reference implementations, each attributed in the
-help page of the function concerned.
+The special functions follow freely licensed reference implementations,
+each attributed in its own help page, and the distribution and quantile
+functions are built on them.
 
 | Function | Source |
 |---|---|

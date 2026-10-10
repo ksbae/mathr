@@ -1,15 +1,74 @@
 \name{NEWS}
 \title{News for Package \pkg{mathr}}
 
+\section{Version 0.1.5 (2026-10-10)}{
+  \itemize{
+    \item{0.1.4 was tagged but never sent to CRAN. Its changes, listed
+          below, reach CRAN with this release.}
+    \item{The check that 0.1.4 put in front of the functions that work a
+          value at a time missed some arguments: \code{p} in \code{Qf},
+          \code{Tol} in \code{VMmin}, \code{Plot} in \code{mlr},
+          \code{add} in \code{ellipse}, \code{GradTol}, \code{StepTol},
+          \code{FnTol} and \code{ItnLimit} in \code{Optim0}, and \code{n}
+          in \code{Rnorm}. Given a vector, each still stopped with one of
+          R's own errors. Every argument that drives an \code{if} or a
+          \code{while} is now checked, 139 argument positions across 67
+          functions, and the help pages of the six functions name the
+          arguments added. Since \code{Plot}, \code{add}, \code{Double} in
+          \code{Dec2Bin} and \code{DecFlag} in \code{LOG} are TRUE or
+          FALSE, the error, and their help pages, now ask for "a single
+          value" rather than "a single number".}
+    \item{\code{runifLC()} at its default \code{n = 1}, and \code{SymInv}
+          on a 1 x 1 matrix, stopped with an error, because \code{2:n}
+          counts down when n is 1. Both now skip that loop, as \code{Grad}
+          and \code{Deriv2} already did.}
+    \item{\code{mlr} no longer calls \code{anyNA}, which first appeared in
+          R 3.1.0, above the R (>= 3.0.0) that DESCRIPTION declares.}
+    \item{Source comments that described methods the code does not use
+          are corrected. \code{erfccheb}, \code{betaiapprox} and
+          \code{gammpapprox} forward to \code{erfc}, \code{betai} and
+          \code{gammp} or \code{gammq}; \code{erfc} goes through
+          \code{gammq}, not a Cephes rational approximation; and what the
+          \code{EXP} guards keep from overflowing is \code{g*P(y)} and
+          \code{Q(y)}, not \code{y = g*g}.}
+    \item{The Ref line on the \code{betacf}, \code{betai}, \code{erf},
+          \code{erfc}, \code{gammln}, \code{gammp}, \code{gammq},
+          \code{gcf}, \code{gser}, \code{inverfc}, \code{invbetai} and
+          \code{invgammp} help pages lacked a full stop and ran into the
+          sentence after it.}
+    \item{\code{GAMMA} and \code{LGAMMA} hold the Lanczos coefficients the
+          GNU Scientific Library uses, which only the \code{gammln} page
+          said; their own pages now say it too. \code{gammpapprox} and
+          \code{betaiapprox} are no longer titled as quadrature
+          approximations, which in this package they never were.}
+    \item{The 0.1.4 entries below are corrected where they were wrong. The
+          \code{EXP} error figures were relative errors in units of
+          \code{.Machine$double.eps}, not ulp, and the shortcut was taken
+          on every call whose result is finite and nonzero, not on every
+          call. The old \code{EXP} also returned Inf at
+          \code{log(.Machine$double.xmax)} itself. Its NaN began near 2e78
+          rather than 1e78, came back instead of 0 for very large negative
+          arguments as well, and was nearly but not quite total past 1e82.
+          The overflow warning below \code{0.9 * .Machine$double.xmax} is
+          new in 0.1.4, not kept from before, and the 0.1.4 argument check
+          did not reach every argument it said it did. Smaller corrections
+          fix the list of bare titles and, under 0.1.0, which functions
+          carry an attribution.}
+  }
+}
+
 \section{Version 0.1.4 (2026-09-20)}{
   \itemize{
     \item{\code{EXP} was not running its own algorithm. The range
           reduction left \code{xexp = x/ln2} unrounded, so the reduced
           argument \code{g} never grew past about 1e-13, the
-          \code{abs(g) < sqrt(eps)} shortcut was taken on every call, and
-          the rational approximation under it was dead code. What came
-          back was \code{2^(x/ln2)} and nothing else, up to 223 ulp off at
-          the ends of the range. \code{xexp} is now rounded to the nearest
+          \code{abs(g) < sqrt(eps)} shortcut was taken on every call whose
+          result is finite and nonzero, and the rational approximation
+          under it was dead code there. What came back was
+          \code{2^(x/ln2)} and nothing else, up to 223 eps off in relative
+          terms (about 444 ulp) at the ends of the range, and Inf at
+          \code{log(.Machine$double.xmax)} itself, where \code{x/ln2}
+          rounds to 1024. \code{xexp} is now rounded to the nearest
           integer, which is what puts \code{g} in the interval
           \code{abs(g) <= ln2/2} the coefficients were fitted on. The
           shortcut is gone with it: once \code{g} can be nonzero, taking
@@ -18,19 +77,22 @@
           in two halves, because \code{2^xexp} on its own overflows to Inf,
           and underflows to 0, at exponents where the result is still a
           finite nonzero number. Worst relative error over the whole range
-          is now about 1.5 ulp rather than 223.}
+          is now about 1.5 eps rather than 223, about 2 ulp.}
     \item{\code{EXP} returned NaN instead of Inf for very large arguments,
-          from about 1e78 upward and for every argument past about 1e82.
+          and NaN instead of 0 for very large negative ones, from about
+          2e78 in magnitude and for nearly every argument past about 1e82.
           The overflow guard sat at \code{0.9 * .Machine$double.xmax}, which
           is nowhere near where exp overflows, so such an argument reached a
           range reduction that could not reduce it: \code{g} grew with x
-          until the numerator of the rational form overflowed, and the
-          denominator with it, leaving Inf minus Inf. The guard is now at
+          until the numerator and the denominator of the rational form both
+          overflowed, and their quotient was NaN. The guard is now at
           \code{log(.Machine$double.xmax)} going up and at
           \code{-1075*ln2} going down, the latter being where exp falls
-          under half the least subnormal. Overflow still warns and returns
-          Inf, underflow still returns 0 quietly, and both limits now
-          agree with \code{exp} to the last double.}
+          under half the least subnormal. Overflow now warns and returns
+          Inf for every argument past the upper limit, where it used to
+          warn only past \code{0.9 * .Machine$double.xmax}; underflow
+          returns 0 quietly. Both limits agree with \code{exp} to the last
+          double.}
     \item{\code{EXP(-Inf)} returned \code{-Inf}. The branch for it had
           been the \code{+Inf} branch with the sign flipped, so it handed
           the argument back instead of the limit. It returns 0, which is
@@ -38,12 +100,11 @@
     \item{Given a vector, the functions here that work a value at a time
           failed with "the condition has length > 1", the message R
           raises for an \code{if} whose condition is not a single value.
-          It names neither the function nor the reason. Every argument
-          that drives such an \code{if} is now checked up front, and the
-          error names the function and the argument and points at
-          \code{sapply}: 130 argument positions across 64 functions,
-          \code{EXP}, \code{LOG}, \code{SQRT} and the distribution
-          functions among them. Arguments that do accept a vector and
+          It names neither the function nor the reason. 130 argument
+          positions across 64 functions, \code{EXP}, \code{LOG},
+          \code{SQRT} and the distribution functions among them, are now
+          checked up front, and the error names the function and the
+          argument and points at \code{sapply}. Arguments that do accept a vector and
           return the right answer for one, such as \code{mu} in
           \code{Qnorm} or \code{x} in \code{Dnorm}, are untouched. Each
           of the 64 help pages now names the arguments its own function
@@ -56,7 +117,8 @@
           Rd, so \code{L \%*\% t(L)} was cut back to \code{L}. Both are
           now escaped and the round trip back to M shows.}
     \item{Help page titles: \code{invbetai} was titled as the inverse of
-          gammp, \code{NORM} and \code{DENORM} carried their bare names,
+          gammp, \code{NORM}, \code{DENORM} and \code{ellipRange} carried
+          their bare names,
           and seven pairs of pages shared one title (\code{conv} and
           \code{conv0}, \code{deconv} and \code{deconv0}, \code{gammp} and
           \code{gammq}, \code{trapez0} and \code{trapez1}, \code{Run.test}
@@ -167,9 +229,9 @@
     \item{Calculus, distribution functions, random variate generation,
           linear algebra, differential equations and optimization, sized
           for one semester.}
-    \item{The special functions, and every distribution function built
-          on them, follow freely licensed reference implementations, each
-          attributed in the help page of the function concerned.
+    \item{The special functions follow freely licensed reference
+          implementations, each attributed in its own help page, and the
+          distribution and quantile functions are built on them.
           \code{gammln} uses the Lanczos g=7 coefficients of the GNU
           Scientific Library. \code{gser}, \code{gcf}, \code{gammp} and
           \code{gammq} follow the Cephes series and continued fraction as
